@@ -1,0 +1,1144 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Professionals — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-page">
+
+<div class="container py-4 py-lg-5">
+
+    <!-- =================================================
+         ADMIN HEADER
+         ================================================= -->
+
+    <div class="admin-header mb-4">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="admin-header-icon">
+                <i class="bi bi-person-workspace"></i>
+            </div>
+
+            <div>
+
+                <div class="mate-label mb-1">
+                    MATE // ADMIN // PROFESSIONALS
+                </div>
+
+                <h1>
+                    Manage Professionals
+                </h1>
+
+                <p>
+                    Review professionals, verification status, and account controls.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PROFESSIONAL COUNT
+         ================================================= -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <div class="admin-count-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <i class="bi bi-person-workspace fs-3 text-mate"></i>
+
+                    <div>
+
+                        <div class="admin-count-label">
+                            Registered Professionals
+                        </div>
+
+                        <div class="admin-count-number">
+                            {{ professionals|length }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="admin-toolbar mb-4">
+        <div class="admin-search">
+            <i class="bi bi-search"></i>
+            <input
+                type="text"
+                class="mate-live-search"
+                id="professionalSearch"
+                data-search-target=".professional-card"
+                placeholder="Search professionals by name, email, profession, location or ID..."
+                autocomplete="off"
+            >
+        </div>
+    </div>
+
+    <!-- =================================================
+         PROFESSIONAL LIST
+         ================================================= -->
+
+    {% if professionals %}
+
+        <div class="d-flex flex-column gap-4">
+
+            {% for professional in professionals %}
+
+            <div class="admin-profile-card professional-card">
+
+                <!-- =====================================
+                     PROFILE HEADER
+                     ===================================== -->
+
+                <div class="admin-profile-header">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        {% if professional.profile_photo %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + professional.profile_photo
+                                ) }}"
+                                alt="{{ professional.full_name }}"
+                                class="admin-profile-avatar"
+                            >
+
+                        {% else %}
+
+                            <div class="admin-profile-avatar d-flex align-items-center justify-content-center">
+
+                                <i class="bi bi-person-workspace fs-3 text-muted-mate"></i>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div>
+
+                            <h3 class="admin-profile-name">
+                                {{ professional.full_name }}
+                            </h3>
+
+                            <div class="admin-profile-subtitle">
+                                {{ professional.profession or "Professional" }}
+                            </div>
+
+                            <div class="admin-profile-id">
+                                Account #{{ professional.id }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     CONTACT INFORMATION
+                     ===================================== -->
+
+                <div class="admin-info-section">
+
+                    <div class="admin-info-title">
+
+                        <i class="bi bi-person-vcard"></i>
+
+                        Contact Information
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- EMAIL -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Email
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    <i class="bi bi-envelope me-2 text-mate"></i>
+
+                                    {{ professional.email }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Phone
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.phone %}
+
+                                        <i class="bi bi-telephone me-2 text-mate"></i>
+
+                                        {{ professional.phone }}
+
+                                    {% else %}
+
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Location
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.location %}
+
+                                        <i class="bi bi-geo-alt me-2 text-mate"></i>
+
+                                        {{ professional.location }}
+
+                                    {% else %}
+
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     VERIFICATION STATUS
+                     ===================================== -->
+
+                <div class="admin-verification-box">
+
+                    <div class="admin-status-label">
+                        Verification Status
+                    </div>
+
+
+                    {% if professional.verification_status == "verified" %}
+
+                        <span class="mate-badge mate-badge-success">
+
+                            <i class="bi bi-patch-check-fill me-1"></i>
+
+                            Verified
+
+                        </span>
+
+
+                    {% elif professional.verification_status == "rejected" %}
+
+                        <span class="mate-badge mate-badge-danger">
+
+                            <i class="bi bi-x-circle-fill me-1"></i>
+
+                            Rejected
+
+                        </span>
+
+
+                    {% else %}
+
+                        <span class="mate-badge mate-badge-warning">
+
+                            <i class="bi bi-clock-fill me-1"></i>
+
+                            Pending
+
+                        </span>
+
+                    {% endif %}
+
+
+                    <!-- VERIFICATION ACTIONS -->
+
+                    {% if professional.verification_status == "pending" %}
+
+                        <div class="admin-verification-actions">
+
+                            <!-- APPROVE -->
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_verify_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="Verified"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-success"
+                                    data-confirm="Approve this professional?"
+                                >
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Approve Professional
+
+                                </button>
+
+                            </form>
+
+
+                            <!-- REJECT -->
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_verify_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="rejected"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-danger"
+                                    data-confirm="Reject this professional?"
+                                >
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                    Reject Professional
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =====================================
+                     ACCOUNT STATUS
+                     ===================================== -->
+
+                <div class="admin-status-box">
+
+                    <div class="admin-status-label">
+                        Account Status
+                    </div>
+
+
+                    {% if professional.account_status == "temporarily_banned" %}
+
+                        <span class="mate-badge mate-badge-warning">
+
+                            <i class="bi bi-clock me-1"></i>
+
+                            Temporarily Banned
+
+                        </span>
+
+
+                        {% if professional.ban_until %}
+
+                            <div class="small text-muted-mate mt-2">
+
+                                <i class="bi bi-calendar-event me-1"></i>
+
+                                Ban expires:
+                                {{ professional.ban_until }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% if professional.ban_reason %}
+
+                            <div class="admin-ban-warning">
+
+                                <div class="admin-ban-warning-title">
+
+                                    <i class="bi bi-info-circle me-1"></i>
+
+                                    Ban Reason
+
+                                </div>
+
+                                <p class="admin-ban-warning-text">
+                                    {{ professional.ban_reason }}
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    {% elif professional.account_status == "permanently_banned" %}
+
+                        <span class="mate-badge mate-badge-danger">
+
+                            <i class="bi bi-slash-circle me-1"></i>
+
+                            Permanently Banned
+
+                        </span>
+
+
+                        {% if professional.ban_reason %}
+
+                            <div class="admin-ban-warning">
+
+                                <div class="admin-ban-warning-title">
+
+                                    <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                    Ban Reason
+
+                                </div>
+
+                                <p class="admin-ban-warning-text">
+                                    {{ professional.ban_reason }}
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    {% else %}
+
+                        <span class="mate-badge mate-badge-success">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Active
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =====================================
+                     PROFESSIONAL INFORMATION
+                     ===================================== -->
+
+                <div class="admin-info-section">
+
+                    <div class="admin-info-title">
+
+                        <i class="bi bi-briefcase"></i>
+
+                        Professional Information
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- CATEGORY -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Category
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.category %}
+                                        {{ professional.category }}
+                                    {% else %}
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EXPERIENCE -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Experience
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {{ professional.experience or 0 }}
+                                    years
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- QUALIFICATION -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Qualification
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.qualification %}
+                                        {{ professional.qualification }}
+                                    {% else %}
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PRICE -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Service Price
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    <span class="text-mate">
+                                        ₹{{ "%.2f"|format(
+                                            professional.service_price or 0
+                                        ) }}
+                                    </span>
+
+                                    / {{ professional.price_unit or "hour" }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SERVICE AREA -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Service Area
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.service_area %}
+                                        {{ professional.service_area }}
+                                    {% else %}
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AVAILABILITY -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Working Hours
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if professional.start_time and professional.end_time %}
+
+                                        <i class="bi bi-clock me-2 text-mate"></i>
+
+                                        {{ professional.start_time }}
+                                        —
+                                        {{ professional.end_time }}
+
+                                    {% else %}
+
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ABOUT
+                     ===================================== -->
+
+                <div class="admin-info-section">
+
+                    <div class="admin-info-title">
+
+                        <i class="bi bi-card-text"></i>
+
+                        About Professional
+
+                    </div>
+
+
+                    {% if professional.description %}
+
+                        <p class="admin-info-value mb-0">
+                            {{ professional.description }}
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-muted-mate mb-0">
+                            No description provided.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =====================================
+                     SUBMITTED DOCUMENTS
+                     ===================================== -->
+
+                <div class="admin-info-section">
+
+                    <div class="admin-info-title">
+
+                        <i class="bi bi-folder2-open"></i>
+
+                        Submitted Documents
+
+                    </div>
+
+
+                    <div class="admin-document-list">
+
+
+                        <!-- GOVERNMENT ID -->
+
+                        {% if professional.government_id_document %}
+
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + professional.government_id_document
+                                ) }}"
+                                target="_blank"
+                                class="admin-document-link"
+                            >
+
+                                <i class="bi bi-person-vcard"></i>
+
+                                <span>
+                                    Government ID
+                                </span>
+
+                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <!-- QUALIFICATION -->
+
+                        {% if professional.qualification_document %}
+
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + professional.qualification_document
+                                ) }}"
+                                target="_blank"
+                                class="admin-document-link"
+                            >
+
+                                <i class="bi bi-mortarboard"></i>
+
+                                <span>
+                                    Qualification Document
+                                </span>
+
+                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <!-- ADDITIONAL -->
+
+                        {% if professional.additional_document %}
+
+                            <a
+                                href="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + professional.additional_document
+                                ) }}"
+                                target="_blank"
+                                class="admin-document-link"
+                            >
+
+                                <i class="bi bi-file-earmark-text"></i>
+
+                                <span>
+                                    Additional Document
+                                </span>
+
+                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
+
+                            </a>
+
+                        {% endif %}
+
+
+                        {% if not professional.government_id_document
+                              and not professional.qualification_document
+                              and not professional.additional_document %}
+
+                            <div class="admin-ban-warning">
+
+                                <div class="admin-ban-warning-title">
+
+                                    <i class="bi bi-info-circle me-1"></i>
+
+                                    No Documents
+
+                                </div>
+
+                                <p class="admin-ban-warning-text">
+                                    No verification documents have been submitted.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACCOUNT CONTROLS
+                     ===================================== -->
+
+                <div class="admin-controls">
+
+                    <div class="admin-controls-title">
+
+                        <i class="bi bi-shield-lock me-2 text-mate"></i>
+
+                        Account Controls
+
+                    </div>
+
+
+                    <!-- =================================
+                         ACTIVE
+                         ================================= -->
+
+                    {% if professional.account_status == "active" %}
+
+
+                        <!-- TEMPORARY BAN -->
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_temp_ban_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <select
+                                    name="duration"
+                                    required
+                                >
+
+                                    <option value="1">
+                                        1 Day
+                                    </option>
+
+                                    <option value="3">
+                                        3 Days
+                                    </option>
+
+                                    <option value="7" selected>
+                                        7 Days
+                                    </option>
+
+                                    <option value="30">
+                                        30 Days
+                                    </option>
+
+                                </select>
+
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Temporary ban reason (optional)"
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-warning"
+                                >
+
+                                    <i class="bi bi-clock"></i>
+
+                                    Temporary Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- PERMANENT BAN -->
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_permanent_ban_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Permanent ban reason"
+                                    required
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-danger"
+                                    data-confirm="Are you sure you want to permanently ban this professional?"
+                                >
+
+                                    <i class="bi bi-slash-circle"></i>
+
+                                    Permanent Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                    <!-- =================================
+                         TEMPORARILY BANNED
+                         ================================= -->
+
+                    {% elif professional.account_status == "temporarily_banned" %}
+
+
+                        <div class="admin-control-group">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_unban_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-success"
+                                >
+
+                                    <i class="bi bi-unlock"></i>
+
+                                    Unban Professional
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- PERMANENT BAN -->
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_permanent_ban_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Permanent ban reason"
+                                    required
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-danger"
+                                    data-confirm="Are you sure you want to permanently ban this professional?"
+                                >
+
+                                    <i class="bi bi-slash-circle"></i>
+
+                                    Permanent Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                    <!-- =================================
+                         PERMANENTLY BANNED
+                         ================================= -->
+
+                    {% elif professional.account_status == "permanently_banned" %}
+
+
+                        <div class="admin-control-group">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_unban_professional',
+                                    professional_id=professional.id
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-success"
+                                >
+
+                                    <i class="bi bi-unlock"></i>
+
+                                    Unban Professional
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================
+                         DELETE ACCOUNT
+                         ================================= -->
+
+                    <div class="admin-control-group mt-3 pt-3 border-top border-mate">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'admin_delete_professional',
+                                professional_id=professional.id
+                            ) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="admin-btn admin-btn-danger"
+                                data-confirm="Are you sure you want to DELETE this professional account? This cannot be undone."
+                            >
+
+                                <i class="bi bi-trash3"></i>
+
+                                Delete Account
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="admin-empty-state">
+
+            <i class="bi bi-person-workspace"></i>
+
+            <h4>
+                No Professionals Registered
+            </h4>
+
+            <p>
+                Registered MATE professionals will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         BACK TO DASHBOARD
+         ================================================= -->
+
+    <div class="mt-4">
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="btn btn-mate-outline"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,2462 @@
+/* =========================================================
+   MATE — Hire a Professional
+   Main Stylesheet
+   Theme: Dark Futuristic / Steel Gray / Crimson
+   ========================================================= */
+
+
+/* =========================================================
+   1. ROOT VARIABLES
+   ========================================================= */
+
+:root {
+    --mate-bg: #0b0d0f;
+    --mate-bg-secondary: #101418;
+    --mate-surface: #151a1e;
+    --mate-surface-light: #1c2227;
+
+    --mate-border: #30373d;
+    --mate-border-light: #414950;
+
+    --mate-gray: #7f898f;
+    --mate-light-gray: #b9c0c5;
+    --mate-text: #e7eaec;
+    --mate-white: #f5f6f7;
+
+    --mate-red: #d62839;
+    --mate-red-light: #ef4354;
+    --mate-red-dark: #a91f2d;
+
+    --mate-success: #38b879;
+    --mate-warning: #e0a83e;
+    --mate-danger: #d62839;
+    --mate-info: #62a9c7;
+
+    --mate-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --mate-shadow-red: 0 0 20px rgba(214, 40, 57, 0.18);
+
+    --mate-radius: 8px;
+    --mate-radius-small: 5px;
+
+    --mate-transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   2. GLOBAL RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(214, 40, 57, 0.06),
+            transparent 30%
+        ),
+        var(--mate-bg);
+
+    color: var(--mate-text);
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--mate-red-light);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+
+/* =========================================================
+   3. TEXT
+   ========================================================= */
+
+.text-mate {
+    color: var(--mate-red) !important;
+}
+
+.text-light-mate {
+    color: var(--mate-light-gray) !important;
+}
+
+.text-muted-mate {
+    color: var(--mate-gray) !important;
+}
+
+.mate-heading {
+    color: var(--mate-white);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.mate-subheading {
+    color: var(--mate-light-gray);
+    font-size: 1rem;
+}
+
+.mate-label {
+    color: var(--mate-gray);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   4. NAVBAR
+   ========================================================= */
+
+.mate-navbar {
+    background: rgba(11, 13, 15, 0.94);
+    border-bottom: 1px solid var(--mate-border);
+
+    backdrop-filter: blur(12px);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.mate-navbar .navbar-brand {
+    color: var(--mate-white);
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.mate-navbar .navbar-brand span {
+    color: var(--mate-red);
+}
+
+.mate-navbar .nav-link {
+    color: var(--mate-light-gray);
+    font-size: 0.92rem;
+    font-weight: 500;
+
+    padding: 0.7rem 0.9rem !important;
+
+    transition: color var(--mate-transition);
+}
+
+.mate-navbar .nav-link:hover,
+.mate-navbar .nav-link.active {
+    color: var(--mate-white);
+}
+
+.mate-navbar .nav-link.active {
+    border-bottom: 2px solid var(--mate-red);
+}
+
+.mate-navbar .navbar-toggler {
+    border: 1px solid var(--mate-border-light);
+}
+
+.mate-navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 2px rgba(214, 40, 57, 0.2);
+}
+
+.mate-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245,246,247,0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* =========================================================
+   5. MATE LOGO
+   ========================================================= */
+
+.mate-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mate-logo-mark {
+    width: 30px;
+    height: 30px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--mate-red);
+    color: var(--mate-white);
+
+    font-weight: 800;
+    font-size: 0.85rem;
+
+    clip-path: polygon(
+        0 0,
+        82% 0,
+        100% 18%,
+        100% 100%,
+        18% 100%,
+        0 82%
+    );
+}
+
+
+/* =========================================================
+   6. BUTTONS
+   ========================================================= */
+
+.btn-mate {
+    background: var(--mate-red);
+    border: 1px solid var(--mate-red);
+
+    color: var(--mate-white);
+
+    font-weight: 600;
+    border-radius: var(--mate-radius-small);
+
+    padding: 0.65rem 1.25rem;
+
+    transition:
+        background var(--mate-transition),
+        border-color var(--mate-transition),
+        transform var(--mate-transition),
+        box-shadow var(--mate-transition);
+}
+
+.btn-mate:hover {
+    background: var(--mate-red-light);
+    border-color: var(--mate-red-light);
+
+    color: var(--mate-white);
+
+    transform: translateY(-1px);
+
+    box-shadow: var(--mate-shadow-red);
+}
+
+.btn-mate:active {
+    transform: translateY(0);
+}
+
+.btn-mate-outline {
+    background: transparent;
+    border: 1px solid var(--mate-border-light);
+
+    color: var(--mate-light-gray);
+
+    font-weight: 600;
+    border-radius: var(--mate-radius-small);
+
+    padding: 0.65rem 1.25rem;
+
+    transition: all var(--mate-transition);
+}
+
+.btn-mate-outline:hover {
+    border-color: var(--mate-red);
+    color: var(--mate-red-light);
+    background: rgba(214, 40, 57, 0.06);
+}
+
+.btn-mate-dark {
+    background: var(--mate-surface);
+    border: 1px solid var(--mate-border);
+
+    color: var(--mate-light-gray);
+
+    border-radius: var(--mate-radius-small);
+}
+
+.btn-mate-dark:hover {
+    background: var(--mate-surface-light);
+    color: var(--mate-white);
+    border-color: var(--mate-border-light);
+}
+
+
+/* =========================================================
+   7. HERO SECTION
+   ========================================================= */
+
+.mate-hero {
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(11, 13, 15, 0.98),
+            rgba(21, 26, 30, 0.94)
+        );
+}
+
+.mate-hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    pointer-events: none;
+}
+
+.mate-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.mate-hero-title {
+    color: var(--mate-white);
+
+    font-size: clamp(2.5rem, 6vw, 5rem);
+
+    font-weight: 800;
+
+    line-height: 1.05;
+
+    letter-spacing: -1px;
+}
+
+.mate-hero-title span {
+    color: var(--mate-red);
+}
+
+.mate-hero-description {
+    max-width: 650px;
+
+    color: var(--mate-light-gray);
+
+    font-size: 1.1rem;
+
+    margin-top: 1.5rem;
+}
+
+
+/* =========================================================
+   8. SECTION
+   ========================================================= */
+
+.mate-section {
+    padding: 80px 0;
+}
+
+.mate-section-dark {
+    background: var(--mate-bg-secondary);
+}
+
+.mate-section-title {
+    color: var(--mate-white);
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    margin-bottom: 0.75rem;
+}
+
+.mate-section-line {
+    width: 55px;
+    height: 3px;
+
+    background: var(--mate-red);
+
+    margin-bottom: 1.5rem;
+}
+
+
+/* =========================================================
+   9. CARDS
+   ========================================================= */
+
+.mate-card {
+    background: var(--mate-surface);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: var(--mate-radius);
+
+    color: var(--mate-text);
+
+    box-shadow: var(--mate-shadow);
+
+    transition:
+        transform var(--mate-transition),
+        border-color var(--mate-transition),
+        box-shadow var(--mate-transition);
+}
+
+.mate-card:hover {
+    transform: translateY(-4px);
+
+    border-color: var(--mate-border-light);
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.42);
+}
+
+.mate-card-header {
+    background: var(--mate-surface-light);
+
+    border-bottom: 1px solid var(--mate-border);
+
+    padding: 1rem 1.25rem;
+}
+
+.mate-card-body {
+    padding: 1.25rem;
+}
+
+
+/* =========================================================
+   10. PROFESSIONAL CARD
+   ========================================================= */
+
+.professional-card {
+    height: 100%;
+    overflow: hidden;
+}
+
+.professional-card-image {
+    width: 100%;
+    height: 230px;
+
+    object-fit: cover;
+
+    background: var(--mate-bg-secondary);
+}
+
+.professional-card-content {
+    padding: 1.2rem;
+}
+
+.professional-card-name {
+    color: var(--mate-white);
+
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.professional-card-profession {
+    color: var(--mate-red-light);
+
+    font-size: 0.9rem;
+    margin-top: 3px;
+}
+
+.professional-card-description {
+    color: var(--mate-gray);
+
+    font-size: 0.88rem;
+
+    margin-top: 0.8rem;
+}
+
+
+/* =========================================================
+   11. PROFILE IMAGE
+   ========================================================= */
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--mate-border-light);
+
+    background: var(--mate-surface-light);
+}
+
+.profile-image-small {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 1px solid var(--mate-border-light);
+}
+
+.profile-image-large {
+    width: 150px;
+    height: 150px;
+
+    display: block;
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 3px solid var(--mate-red);
+
+    box-shadow: var(--mate-shadow-red);
+}
+
+
+/* =========================================================
+   12. FORMS
+   ========================================================= */
+
+.mate-form-label {
+    color: var(--mate-light-gray);
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    margin-bottom: 0.4rem;
+}
+
+.mate-input,
+.mate-select,
+.mate-textarea {
+    width: 100%;
+
+    background: var(--mate-bg-secondary);
+
+    border: 1px solid var(--mate-border);
+
+    color: var(--mate-text);
+
+    border-radius: var(--mate-radius-small);
+
+    padding: 0.7rem 0.85rem;
+
+    transition:
+        border-color var(--mate-transition),
+        box-shadow var(--mate-transition);
+}
+
+.mate-input::placeholder,
+.mate-textarea::placeholder {
+    color: #626b71;
+}
+
+.mate-input:focus,
+.mate-select:focus,
+.mate-textarea:focus {
+    outline: none;
+
+    border-color: var(--mate-red);
+
+    box-shadow:
+        0 0 0 3px rgba(214, 40, 57, 0.12);
+}
+
+.mate-select option {
+    background: var(--mate-surface);
+    color: var(--mate-text);
+}
+
+
+/* =========================================================
+   13. AUTHENTICATION
+   ========================================================= */
+
+.auth-page {
+    min-height: calc(100vh - 72px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 15px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 480px;
+
+    background: var(--mate-surface);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: 10px;
+
+    padding: 2rem;
+
+    box-shadow: var(--mate-shadow);
+}
+
+.auth-logo {
+    text-align: center;
+
+    margin-bottom: 1.5rem;
+}
+
+.auth-logo h1 {
+    color: var(--mate-white);
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.auth-logo span {
+    color: var(--mate-red);
+}
+
+
+/* =========================================================
+   14. DASHBOARD
+   ========================================================= */
+
+.dashboard-wrapper {
+    min-height: calc(100vh - 72px);
+}
+
+.dashboard-sidebar {
+    background: var(--mate-bg-secondary);
+
+    border-right: 1px solid var(--mate-border);
+
+    min-height: calc(100vh - 72px);
+}
+
+.dashboard-sidebar-title {
+    color: var(--mate-gray);
+
+    font-size: 0.72rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    padding: 1.5rem 1rem 0.6rem;
+}
+
+.dashboard-nav-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--mate-light-gray);
+
+    padding: 0.7rem 1rem;
+
+    border-left: 3px solid transparent;
+
+    transition: all var(--mate-transition);
+}
+
+.dashboard-nav-link:hover {
+    background: rgba(255, 255, 255, 0.025);
+
+    color: var(--mate-white);
+}
+
+.dashboard-nav-link.active {
+    background: rgba(214, 40, 57, 0.08);
+
+    color: var(--mate-white);
+
+    border-left-color: var(--mate-red);
+}
+
+.dashboard-content {
+    padding: 2rem;
+}
+
+
+/* =========================================================
+   15. STAT CARDS
+   ========================================================= */
+
+.stat-card {
+    background: var(--mate-surface);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: var(--mate-radius);
+
+    padding: 1.25rem;
+
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.stat-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    right: -25px;
+    top: -25px;
+
+    border-radius: 50%;
+
+    background: rgba(214, 40, 57, 0.08);
+}
+
+.stat-label {
+    color: var(--mate-gray);
+
+    font-size: 0.78rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    color: var(--mate-white);
+
+    font-size: 1.8rem;
+
+    font-weight: 700;
+
+    margin-top: 0.25rem;
+}
+
+
+/* =========================================================
+   16. TABLES
+   ========================================================= */
+
+.mate-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--mate-text);
+    --bs-table-border-color: var(--mate-border);
+
+    margin-bottom: 0;
+}
+
+.mate-table thead th {
+    color: var(--mate-gray);
+
+    background: var(--mate-bg-secondary);
+
+    font-size: 0.75rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    font-weight: 600;
+}
+
+.mate-table tbody tr {
+    transition: background var(--mate-transition);
+}
+
+.mate-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   17. BADGES / STATUS
+   ========================================================= */
+
+.mate-badge {
+    display: inline-block;
+
+    padding: 0.35rem 0.65rem;
+
+    border-radius: 30px;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+}
+
+.mate-badge-success {
+    background: rgba(56, 184, 121, 0.12);
+    color: var(--mate-success);
+}
+
+.mate-badge-warning {
+    background: rgba(224, 168, 62, 0.12);
+    color: var(--mate-warning);
+}
+
+.mate-badge-danger {
+    background: rgba(214, 40, 57, 0.12);
+    color: var(--mate-red-light);
+}
+
+.mate-badge-info {
+    background: rgba(98, 169, 199, 0.12);
+    color: var(--mate-info);
+}
+
+.mate-badge-secondary {
+    background: rgba(127, 137, 143, 0.12);
+    color: var(--mate-light-gray);
+}
+
+
+/* =========================================================
+   18. ALERTS
+   ========================================================= */
+
+.mate-alert {
+    border-radius: var(--mate-radius-small);
+
+    border: 1px solid var(--mate-border);
+
+    background: var(--mate-surface);
+
+    color: var(--mate-text);
+}
+
+.mate-alert-success {
+    border-left: 3px solid var(--mate-success);
+}
+
+.mate-alert-danger {
+    border-left: 3px solid var(--mate-danger);
+}
+
+.mate-alert-warning {
+    border-left: 3px solid var(--mate-warning);
+}
+
+.mate-alert-info {
+    border-left: 3px solid var(--mate-info);
+}
+
+
+/* =========================================================
+   19. SEARCH
+   ========================================================= */
+
+.mate-search {
+    position: relative;
+}
+
+.mate-search input {
+    padding-right: 50px;
+}
+
+.mate-search-button {
+    position: absolute;
+
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+
+    width: 42px;
+
+    border: none;
+
+    background: var(--mate-red);
+
+    color: var(--mate-white);
+
+    border-radius: var(--mate-radius-small);
+}
+
+.mate-search-button:hover {
+    background: var(--mate-red-light);
+}
+
+
+/* =========================================================
+   20. RATING
+   ========================================================= */
+
+.rating {
+    color: #e3ad42;
+
+    letter-spacing: 2px;
+}
+
+.rating-empty {
+    color: var(--mate-border-light);
+}
+
+
+/* =========================================================
+   21. DIVIDERS
+   ========================================================= */
+
+.mate-divider {
+    border: 0;
+
+    border-top: 1px solid var(--mate-border);
+
+    margin: 1.5rem 0;
+}
+
+
+/* =========================================================
+   22. FOOTER
+   ========================================================= */
+
+.mate-footer {
+    background: #080a0c;
+
+    border-top: 1px solid var(--mate-border);
+
+    color: var(--mate-gray);
+
+    padding: 45px 0 25px;
+}
+
+.mate-footer-title {
+    color: var(--mate-white);
+
+    font-weight: 700;
+
+    margin-bottom: 1rem;
+}
+
+.mate-footer a {
+    color: var(--mate-gray);
+
+    transition: color var(--mate-transition);
+}
+
+.mate-footer a:hover {
+    color: var(--mate-red-light);
+}
+
+.mate-footer-bottom {
+    border-top: 1px solid var(--mate-border);
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   23. MODAL
+   ========================================================= */
+
+.mate-modal .modal-content {
+    background: var(--mate-surface);
+
+    color: var(--mate-text);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: var(--mate-radius);
+}
+
+.mate-modal .modal-header {
+    border-bottom-color: var(--mate-border);
+}
+
+.mate-modal .modal-footer {
+    border-top-color: var(--mate-border);
+}
+
+.mate-modal .btn-close {
+    filter: invert(1);
+}
+
+
+/* =========================================================
+   24. PAGINATION
+   ========================================================= */
+
+.mate-pagination .page-link {
+    background: var(--mate-surface);
+
+    border-color: var(--mate-border);
+
+    color: var(--mate-light-gray);
+}
+
+.mate-pagination .page-link:hover {
+    background: var(--mate-surface-light);
+
+    color: var(--mate-white);
+
+    border-color: var(--mate-border-light);
+}
+
+.mate-pagination .active .page-link {
+    background: var(--mate-red);
+
+    border-color: var(--mate-red);
+
+    color: var(--mate-white);
+}
+
+
+/* =========================================================
+   25. LOADING
+   ========================================================= */
+
+.mate-loader {
+    width: 35px;
+    height: 35px;
+
+    border: 3px solid var(--mate-border);
+
+    border-top-color: var(--mate-red);
+
+    border-radius: 50%;
+
+    animation: mateSpin 0.8s linear infinite;
+}
+
+@keyframes mateSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   26. UTILITY CLASSES
+   ========================================================= */
+
+.bg-mate {
+    background: var(--mate-bg) !important;
+}
+
+.bg-mate-secondary {
+    background: var(--mate-bg-secondary) !important;
+}
+
+.bg-mate-surface {
+    background: var(--mate-surface) !important;
+}
+
+.border-mate {
+    border-color: var(--mate-border) !important;
+}
+
+.shadow-mate {
+    box-shadow: var(--mate-shadow) !important;
+}
+
+.glow-mate {
+    box-shadow: var(--mate-shadow-red) !important;
+}
+
+
+/* =========================================================
+   27. RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .mate-navbar .nav-link.active {
+        border-bottom: none;
+        border-left: 2px solid var(--mate-red);
+        padding-left: 1rem !important;
+    }
+
+    .dashboard-sidebar {
+        min-height: auto;
+
+        border-right: none;
+
+        border-bottom: 1px solid var(--mate-border);
+    }
+
+    .dashboard-content {
+        padding: 1.25rem;
+    }
+
+    .mate-hero {
+        min-height: 520px;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    .mate-section {
+        padding: 55px 0;
+    }
+
+    .mate-hero {
+        min-height: 500px;
+    }
+
+    .mate-hero-title {
+        font-size: 2.6rem;
+    }
+
+    .mate-hero-description {
+        font-size: 1rem;
+    }
+
+    .auth-card {
+        padding: 1.4rem;
+    }
+
+    .dashboard-content {
+        padding: 1rem;
+    }
+
+    .professional-card-image {
+        height: 210px;
+    }
+}
+
+
+@media (max-width: 575px) {
+
+    .mate-navbar .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .mate-logo-mark {
+        width: 26px;
+        height: 26px;
+    }
+
+    .mate-hero-title {
+        font-size: 2.25rem;
+    }
+
+    .mate-section-title {
+        font-size: 1.6rem;
+    }
+
+    .btn-mate,
+    .btn-mate-outline {
+        width: 100%;
+    }
+
+    .profile-image-large {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* =========================================================
+   MATE AUTHENTICATION
+   ========================================================= */
+
+.mate-auth-section {
+    min-height: calc(100vh - 150px);
+    padding: 80px 0;
+    display: flex;
+    align-items: center;
+}
+
+
+.account-choice-card {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.account-choice-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--mate-red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+
+.account-choice-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(214, 40, 57, 0.6);
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+
+.account-choice-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.professional-choice {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(214, 40, 57, 0.06),
+            rgba(20, 23, 27, 0.95)
+        );
+}
+
+
+.account-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border: 1px solid rgba(214, 40, 57, 0.45);
+
+    background: rgba(214, 40, 57, 0.08);
+
+    color: var(--mate-red);
+
+    font-size: 1.7rem;
+}
+
+
+.account-feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+
+.account-feature-list li {
+    color: var(--mate-text-muted);
+    margin-bottom: 12px;
+}
+
+
+.account-feature-list i {
+    color: var(--mate-red);
+    margin-right: 8px;
+}
+
+
+.mate-link {
+    color: var(--mate-red);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+
+.mate-link:hover {
+    color: #f04b5d;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 767px) {
+
+    .mate-auth-section {
+        padding: 50px 0;
+    }
+
+    .account-choice-card {
+        padding: 30px !important;
+    }
+
+}
+
+
+/* =========================================================
+   REGISTRATION FORM
+   ========================================================= */
+
+.mate-form-label {
+    color: var(--mate-text);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+
+.mate-input {
+    background: #111418;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--mate-text);
+    border-radius: 4px;
+    padding: 12px 14px;
+}
+
+
+.mate-input::placeholder {
+    color: #697078;
+}
+
+
+.mate-input:focus {
+    background: #111418;
+    color: var(--mate-text);
+    border-color: var(--mate-red);
+    box-shadow: 0 0 0 0.2rem rgba(214, 40, 57, 0.12);
+}
+
+
+.mate-form-help {
+    color: var(--mate-text-muted);
+}
+
+
+.mate-password-button {
+    background: #111418;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--mate-text-muted);
+}
+
+
+.mate-password-button:hover {
+    background: #181c21;
+    color: var(--mate-red);
+}
+
+
+.mate-check {
+    background-color: #111418;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.mate-check:checked {
+    background-color: var(--mate-red);
+    border-color: var(--mate-red);
+}
+
+
+.profile-preview {
+    width: 110px;
+    height: 110px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(214, 40, 57, 0.6);
+
+    background: #111418;
+}
+
+
+.mate-back-link {
+    color: var(--mate-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+
+.mate-back-link:hover {
+    color: var(--mate-red);
+}
+
+/* =========================================================
+   PROFILE CARD
+   ========================================================= */
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-card .profile-image-large {
+    display: block;
+    margin: 0 auto 15px;
+}
+
+.profile-name {
+    width: 100%;
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.profile-role {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+/*2nd part*/
+
+/* =========================================================
+   MATE — ADMIN PANEL UI
+   Dark Raven / Crimson Control Center
+   ========================================================= */
+
+
+/* =========================================================
+   ADMIN PAGE
+   ========================================================= */
+
+.admin-page {
+    min-height: calc(100vh - 72px);
+    background:
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(214, 40, 57, 0.07),
+            transparent 28%
+        ),
+        var(--mate-bg);
+}
+
+
+/* =========================================================
+   ADMIN HEADER
+   ========================================================= */
+
+.admin-header {
+    padding: 2rem 0 1.5rem;
+    border-bottom: 1px solid var(--mate-border);
+}
+
+.admin-header h1 {
+    color: var(--mate-white);
+    font-size: 1.8rem;
+    font-weight: 750;
+    margin-bottom: 0.25rem;
+}
+
+.admin-header p {
+    color: var(--mate-gray);
+    margin: 0;
+}
+
+.admin-header-icon {
+    width: 46px;
+    height: 46px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(214, 40, 57, 0.10);
+    border: 1px solid rgba(214, 40, 57, 0.25);
+    border-radius: 8px;
+
+    color: var(--mate-red-light);
+    font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   ADMIN STAT / COUNT
+   ========================================================= */
+
+.admin-count-card {
+    background:
+        linear-gradient(
+            145deg,
+            var(--mate-surface),
+            var(--mate-bg-secondary)
+        );
+
+    border: 1px solid var(--mate-border);
+    border-radius: 10px;
+
+    padding: 1.25rem;
+
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform var(--mate-transition),
+        border-color var(--mate-transition),
+        box-shadow var(--mate-transition);
+}
+
+.admin-count-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--mate-border-light);
+    box-shadow: var(--mate-shadow);
+}
+
+.admin-count-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -45px;
+    top: -45px;
+
+    border-radius: 50%;
+
+    background: rgba(214, 40, 57, 0.08);
+}
+
+.admin-count-label {
+    color: var(--mate-gray);
+
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+}
+
+.admin-count-number {
+    color: var(--mate-white);
+
+    font-size: 2rem;
+    font-weight: 750;
+
+    line-height: 1.1;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   ADMIN PROFESSIONAL / USER CARD
+   ========================================================= */
+
+.admin-profile-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(28, 34, 39, 0.96),
+            rgba(15, 18, 21, 0.98)
+        );
+
+    border: 1px solid var(--mate-border);
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.30);
+
+    transition:
+        transform var(--mate-transition),
+        border-color var(--mate-transition),
+        box-shadow var(--mate-transition);
+}
+
+.admin-profile-card:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--mate-border-light);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.38);
+}
+
+
+/* =========================================================
+   PROFILE CARD HEADER
+   ========================================================= */
+
+.admin-profile-header {
+    position: relative;
+
+    padding: 1.5rem;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(214, 40, 57, 0.07),
+            transparent 55%
+        );
+
+    border-bottom: 1px solid var(--mate-border);
+}
+
+.admin-profile-header::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    background: var(--mate-red);
+}
+
+.admin-profile-avatar {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--mate-border-light);
+
+    background: var(--mate-bg-secondary);
+
+    box-shadow:
+        0 0 0 5px rgba(214, 40, 57, 0.05);
+}
+
+.admin-profile-name {
+    color: var(--mate-white);
+
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+.admin-profile-subtitle {
+    color: var(--mate-red-light);
+
+    font-size: 0.86rem;
+
+    margin-top: 3px;
+}
+
+.admin-profile-id {
+    color: var(--mate-gray);
+
+    font-size: 0.72rem;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   ADMIN INFORMATION SECTION
+   ========================================================= */
+
+.admin-info-section {
+    padding: 1.35rem 1.5rem;
+
+    border-bottom: 1px solid var(--mate-border);
+}
+
+.admin-info-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--mate-white);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 1rem;
+}
+
+.admin-info-title i {
+    color: var(--mate-red-light);
+}
+
+.admin-info-item {
+    margin-bottom: 0.9rem;
+}
+
+.admin-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.admin-info-label {
+    color: var(--mate-gray);
+
+    display: block;
+
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 2px;
+}
+
+.admin-info-value {
+    color: var(--mate-light-gray);
+
+    font-size: 0.9rem;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   ADMIN STATUS
+   ========================================================= */
+
+.admin-status-box {
+    padding: 1rem 1.5rem;
+
+    background: rgba(255, 255, 255, 0.015);
+
+    border-bottom: 1px solid var(--mate-border);
+}
+
+.admin-status-label {
+    color: var(--mate-gray);
+
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   ADMIN BAN WARNING
+   ========================================================= */
+
+.admin-ban-warning {
+    margin-top: 0.8rem;
+
+    padding: 0.75rem 0.9rem;
+
+    border-left: 3px solid var(--mate-warning);
+
+    background: rgba(224, 168, 62, 0.06);
+
+    border-radius: 4px;
+}
+
+.admin-ban-warning-title {
+    color: var(--mate-warning);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+
+    margin-bottom: 3px;
+}
+
+.admin-ban-warning-text {
+    color: var(--mate-light-gray);
+
+    font-size: 0.82rem;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   ADMIN DOCUMENTS
+   ========================================================= */
+
+.admin-document-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-document-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0.7rem 0.8rem;
+
+    background: var(--mate-bg-secondary);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: 6px;
+
+    color: var(--mate-light-gray);
+
+    font-size: 0.84rem;
+
+    transition: all var(--mate-transition);
+}
+
+.admin-document-link:hover {
+    color: var(--mate-white);
+
+    border-color: var(--mate-red);
+
+    background: rgba(214, 40, 57, 0.06);
+}
+
+.admin-document-link i {
+    color: var(--mate-red-light);
+}
+
+
+/* =========================================================
+   ADMIN ACCOUNT CONTROLS
+   ========================================================= */
+
+.admin-controls {
+    padding: 1.35rem 1.5rem;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(11, 13, 15, 0.20),
+            rgba(11, 13, 15, 0.45)
+        );
+}
+
+.admin-controls-title {
+    color: var(--mate-white);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 1rem;
+}
+
+.admin-control-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   ADMIN SMALL BUTTONS
+   ========================================================= */
+
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border-radius: 5px;
+
+    padding: 0.48rem 0.8rem;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    border: 1px solid transparent;
+
+    cursor: pointer;
+
+    transition:
+        background var(--mate-transition),
+        border-color var(--mate-transition),
+        color var(--mate-transition),
+        transform var(--mate-transition);
+}
+
+.admin-btn:hover {
+    transform: translateY(-1px);
+}
+
+.admin-btn-warning {
+    background: rgba(224, 168, 62, 0.09);
+    border-color: rgba(224, 168, 62, 0.30);
+    color: var(--mate-warning);
+}
+
+.admin-btn-warning:hover {
+    background: rgba(224, 168, 62, 0.16);
+    border-color: var(--mate-warning);
+    color: var(--mate-warning);
+}
+
+.admin-btn-danger {
+    background: rgba(214, 40, 57, 0.09);
+    border-color: rgba(214, 40, 57, 0.30);
+    color: var(--mate-red-light);
+}
+
+.admin-btn-danger:hover {
+    background: rgba(214, 40, 57, 0.16);
+    border-color: var(--mate-red-light);
+    color: var(--mate-red-light);
+}
+
+.admin-btn-success {
+    background: rgba(56, 184, 121, 0.09);
+    border-color: rgba(56, 184, 121, 0.30);
+    color: var(--mate-success);
+}
+
+.admin-btn-success:hover {
+    background: rgba(56, 184, 121, 0.16);
+    border-color: var(--mate-success);
+    color: var(--mate-success);
+}
+
+.admin-btn-secondary {
+    background: var(--mate-surface-light);
+    border-color: var(--mate-border);
+    color: var(--mate-light-gray);
+}
+
+.admin-btn-secondary:hover {
+    background: var(--mate-border);
+    color: var(--mate-white);
+}
+
+
+/* =========================================================
+   ADMIN BAN FORM
+   ========================================================= */
+
+.admin-ban-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    background: rgba(0, 0, 0, 0.15);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: 6px;
+}
+
+.admin-ban-form select,
+.admin-ban-form input {
+    min-height: 36px;
+
+    background: var(--mate-bg-secondary);
+
+    border: 1px solid var(--mate-border);
+
+    color: var(--mate-text);
+
+    border-radius: 5px;
+
+    padding: 0.45rem 0.65rem;
+
+    font-size: 0.78rem;
+}
+
+.admin-ban-form select:focus,
+.admin-ban-form input:focus {
+    outline: none;
+
+    border-color: var(--mate-red);
+
+    box-shadow:
+        0 0 0 2px rgba(214, 40, 57, 0.10);
+}
+
+.admin-ban-form input {
+    flex: 1;
+    min-width: 160px;
+}
+
+.admin-ban-form select option {
+    background: var(--mate-surface);
+    color: var(--mate-text);
+}
+
+
+/* =========================================================
+   ADMIN VERIFICATION
+   ========================================================= */
+
+.admin-verification-box {
+    padding: 1.25rem 1.5rem;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(98, 169, 199, 0.035),
+            transparent
+        );
+
+    border-bottom: 1px solid var(--mate-border);
+}
+
+.admin-verification-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   ADMIN EMPTY STATE
+   ========================================================= */
+
+.admin-empty-state {
+    text-align: center;
+
+    padding: 5rem 1.5rem;
+
+    background: var(--mate-surface);
+
+    border: 1px dashed var(--mate-border-light);
+
+    border-radius: 10px;
+}
+
+.admin-empty-state i {
+    display: block;
+
+    color: var(--mate-gray);
+
+    font-size: 2.5rem;
+
+    margin-bottom: 1rem;
+}
+
+.admin-empty-state h4 {
+    color: var(--mate-white);
+
+    font-weight: 700;
+
+    margin-bottom: 0.4rem;
+}
+
+.admin-empty-state p {
+    color: var(--mate-gray);
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   ADMIN TABLE
+   ========================================================= */
+
+.admin-table-wrapper {
+    background: var(--mate-surface);
+
+    border: 1px solid var(--mate-border);
+
+    border-radius: 10px;
+
+    overflow-x: auto;
+
+    box-shadow: var(--mate-shadow);
+}
+
+.admin-table {
+    width: 100%;
+
+    margin: 0;
+
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background: var(--mate-bg-secondary);
+
+    color: var(--mate-gray);
+
+    padding: 0.9rem 1rem;
+
+    font-size: 0.7rem;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+}
+
+.admin-table td {
+    color: var(--mate-light-gray);
+
+    padding: 0.9rem 1rem;
+
+    border-top: 1px solid var(--mate-border);
+
+    vertical-align: middle;
+}
+
+.admin-table tbody tr {
+    transition: background var(--mate-transition);
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   ADMIN TOOLBAR
+   ========================================================= */
+
+.admin-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1.25rem;
+}
+
+.admin-toolbar-title {
+    color: var(--mate-white);
+
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+.admin-toolbar-subtitle {
+    color: var(--mate-gray);
+
+    font-size: 0.82rem;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   ADMIN RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .admin-header {
+        padding: 1.5rem 0 1.25rem;
+    }
+
+    .admin-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .admin-profile-header {
+        padding: 1.2rem;
+    }
+
+    .admin-info-section,
+    .admin-status-box,
+    .admin-controls,
+    .admin-verification-box {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
+
+    .admin-ban-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-ban-form select,
+    .admin-ban-form input,
+    .admin-ban-form button {
+        width: 100%;
+    }
+
+    .admin-control-group,
+    .admin-verification-actions {
+        flex-direction: column;
+    }
+
+    .admin-btn {
+        width: 100%;
+    }
+
+    .admin-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 575px) {
+
+    .admin-profile-card {
+        border-radius: 8px;
+    }
+
+    .admin-profile-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .admin-profile-name {
+        font-size: 1.05rem;
+    }
+
+    .admin-count-number {
+        font-size: 1.7rem;
+    }
+}
+/* =========================================
+   ADMIN SEARCH BAR
+========================================= */
+
+.admin-search {
+    position: relative;
+    width: 100%;
+}
+
+.admin-search i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #888;
+    pointer-events: none;
+}
+
+.admin-search input {
+    width: 100%;
+    padding: 14px 18px 14px 48px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.admin-search input::placeholder {
+    color: #777;
+}
+
+.admin-search input:focus {
+    border-color: rgba(220, 53, 69, 0.65);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.08);
+}
+
+@media (max-width: 575px) {
+    .admin-search input {
+        padding: 12px 14px 12px 44px;
+        font-size: 0.9rem;
+    }
+}
+
+/* =========================================================
+   REVIEW PROFESSIONAL INFO
+   ========================================================= */
+
+.review-professional-info {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+
+.review-professional-image {
+    width: 120px;
+    height: 120px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 3px solid var(--mate-red);
+
+    box-shadow: var(--mate-shadow-red);
+}
+
+
+.review-professional-placeholder {
+    width: 120px;
+    height: 120px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--mate-surface-light);
+
+    border: 3px solid var(--mate-red);
+
+    color: var(--mate-gray);
+
+    font-size: 2.5rem;
+
+    box-shadow: var(--mate-shadow-red);
+}
+
+
+.review-professional-details {
+    min-width: 0;
+}
+
+
+.review-professional-details h3 {
+    margin-bottom: 4px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 575px) {
+
+    .review-professional-info {
+        gap: 15px;
+    }
+
+    .review-professional-image,
+    .review-professional-placeholder {
+        width: 85px;
+        height: 85px;
+    }
+
+    .review-professional-placeholder {
+        font-size: 2rem;
+    }
+
+}
+
+
+/* =========================================================
+   DASHBOARD HEADER
+   ========================================================= */
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 10px 0 25px;
+}
+
+
+/* LEFT SIDE */
+
+.dashboard-header > div:first-child {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* PROFILE PHOTO */
+
+.dashboard-profile {
+    flex-shrink: 0;
+}
+
+.dashboard-profile-image,
+.dashboard-profile-placeholder {
+    width: 220px;
+    height: 220px;
+    border-radius: 8px;
+}
+
+
+/* REAL IMAGE */
+
+.dashboard-profile-image {
+    display: block;
+    object-fit: cover;
+    border: 1px solid var(--mate-border);
+    box-shadow: var(--mate-shadow);
+}
+
+
+/* PLACEHOLDER */
+
+.dashboard-profile-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--mate-surface);
+    border: 1px solid var(--mate-border);
+
+    color: var(--mate-gray);
+    font-size: 4rem;
+
+    box-shadow: var(--mate-shadow);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .dashboard-header {
+        gap: 25px;
+    }
+
+    .dashboard-profile-image,
+    .dashboard-profile-placeholder {
+        width: 150px;
+        height: 150px;
+    }
+
+    .dashboard-profile-placeholder {
+        font-size: 3rem;
+    }
+
+}
+
+
+@media (max-width: 575px) {
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-profile {
+        align-self: center;
+    }
+
+    .dashboard-profile-image,
+    .dashboard-profile-placeholder {
+        width: 180px;
+        height: 180px;
+    }
+
+}

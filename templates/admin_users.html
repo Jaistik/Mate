@@ -1,0 +1,654 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Users — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="admin-page">
+
+<div class="container py-4 py-lg-5">
+
+    <!-- =================================================
+         ADMIN HEADER
+         ================================================= -->
+
+    <div class="admin-header mb-4">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="admin-header-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <div>
+
+                <div class="mate-label mb-1">
+                    MATE // ADMIN // USERS
+                </div>
+
+                <h1>
+                    Manage Users
+                </h1>
+
+                <p>
+                    View and manage registered MATE user accounts.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         USER COUNT
+         ================================================= -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <div class="admin-count-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <i class="bi bi-person-check fs-3 text-mate"></i>
+
+                    <div>
+
+                        <div class="admin-count-label">
+                            Registered Users
+                        </div>
+
+                        <div class="admin-count-number">
+                            {{ users|length }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="admin-toolbar mb-4">
+    <div class="admin-search">
+        <i class="bi bi-search"></i>
+        <input
+            type="text"
+            class="mate-live-search"
+            id="userSearch"
+            data-search-target=".user-card"
+            placeholder="Search users by name, email, phone, location or ID..."
+            autocomplete="off"
+        >
+    </div>
+    </div>
+
+    <!-- =================================================
+         USERS
+         ================================================= -->
+
+    {% if users %}
+
+        <div class="d-flex flex-column gap-4">
+
+            {% for user in users %}
+
+            <div class="admin-profile-card user-card">
+
+                <!-- =====================================
+                     PROFILE HEADER
+                     ===================================== -->
+
+                <div class="admin-profile-header">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        {% if user.profile_photo %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/user/' + user.profile_photo
+                                ) }}"
+                                alt="{{ user.full_name }}"
+                                class="admin-profile-avatar"
+                            >
+
+                        {% else %}
+
+                            <div class="admin-profile-avatar d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person fs-3 text-muted-mate"></i>
+                            </div>
+
+                        {% endif %}
+
+
+                        <div>
+
+                            <h3 class="admin-profile-name">
+                                {{ user.full_name }}
+                            </h3>
+
+                            <div class="admin-profile-subtitle">
+                                MATE User
+                            </div>
+
+                            <div class="admin-profile-id">
+                                Account #{{ user.id }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACCOUNT INFORMATION
+                     ===================================== -->
+
+                <div class="admin-info-section">
+
+                    <div class="admin-info-title">
+                        <i class="bi bi-person-vcard"></i>
+                        Account Information
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- EMAIL -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Email
+                                </span>
+
+                                <div class="admin-info-value">
+                                    <i class="bi bi-envelope me-2 text-mate"></i>
+                                    {{ user.email }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Phone
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if user.phone %}
+
+                                        <i class="bi bi-telephone me-2 text-mate"></i>
+                                        {{ user.phone }}
+
+                                    {% else %}
+
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="col-md-4">
+
+                            <div class="admin-info-item">
+
+                                <span class="admin-info-label">
+                                    Location
+                                </span>
+
+                                <div class="admin-info-value">
+
+                                    {% if user.location %}
+
+                                        <i class="bi bi-geo-alt me-2 text-mate"></i>
+                                        {{ user.location }}
+
+                                    {% else %}
+
+                                        <span class="text-muted-mate">
+                                            Not provided
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACCOUNT STATUS
+                     ===================================== -->
+
+                <div class="admin-status-box">
+
+                    <div class="admin-status-label">
+                        Account Status
+                    </div>
+
+
+                    {% if user.account_status == "temporarily_banned" %}
+
+                        <span class="mate-badge mate-badge-warning">
+
+                            <i class="bi bi-clock me-1"></i>
+
+                            Temporarily Banned
+
+                        </span>
+
+
+                        {% if user.ban_until %}
+
+                            <div class="small text-muted-mate mt-2">
+
+                                <i class="bi bi-calendar-event me-1"></i>
+
+                                Ban expires:
+                                {{ user.ban_until }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% if user.ban_reason %}
+
+                            <div class="admin-ban-warning">
+
+                                <div class="admin-ban-warning-title">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Ban Reason
+                                </div>
+
+                                <p class="admin-ban-warning-text">
+                                    {{ user.ban_reason }}
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    {% elif user.account_status == "permanently_banned" %}
+
+                        <span class="mate-badge mate-badge-danger">
+
+                            <i class="bi bi-slash-circle me-1"></i>
+
+                            Permanently Banned
+
+                        </span>
+
+
+                        {% if user.ban_reason %}
+
+                            <div class="admin-ban-warning">
+
+                                <div class="admin-ban-warning-title">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>
+                                    Ban Reason
+                                </div>
+
+                                <p class="admin-ban-warning-text">
+                                    {{ user.ban_reason }}
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+
+                    {% else %}
+
+                        <span class="mate-badge mate-badge-success">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            Active
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =====================================
+                     ACCOUNT CONTROLS
+                     ===================================== -->
+
+                <div class="admin-controls">
+
+                    <div class="admin-controls-title">
+                        <i class="bi bi-shield-lock me-2 text-mate"></i>
+                        Account Controls
+                    </div>
+
+
+                    <!-- =================================
+                         ACTIVE USER
+                         ================================= -->
+
+                    {% if user.account_status == "active" %}
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_temp_ban_user',
+                                    user_id=user.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <select
+                                    name="duration"
+                                    required
+                                >
+
+                                    <option value="1">
+                                        1 Day
+                                    </option>
+
+                                    <option value="3">
+                                        3 Days
+                                    </option>
+
+                                    <option value="7" selected>
+                                        7 Days
+                                    </option>
+
+                                    <option value="30">
+                                        30 Days
+                                    </option>
+
+                                </select>
+
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Temporary ban reason (optional)"
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-warning"
+                                >
+
+                                    <i class="bi bi-clock"></i>
+
+                                    Temporary Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_permanent_ban_user',
+                                    user_id=user.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Permanent ban reason"
+                                    required
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-danger"
+                                    data-confirm="Are you sure you want to permanently ban this user?"
+                                >
+
+                                    <i class="bi bi-slash-circle"></i>
+
+                                    Permanent Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                    <!-- =================================
+                         TEMPORARILY BANNED
+                         ================================= -->
+
+                    {% elif user.account_status == "temporarily_banned" %}
+
+                        <div class="admin-control-group">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_unban_user',
+                                    user_id=user.id
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-success"
+                                >
+
+                                    <i class="bi bi-unlock"></i>
+
+                                    Unban User
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <div class="admin-ban-form">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_permanent_ban_user',
+                                    user_id=user.id
+                                ) }}"
+                                class="d-flex flex-wrap gap-2 w-100"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="reason"
+                                    placeholder="Permanent ban reason"
+                                    required
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-danger"
+                                    data-confirm="Are you sure you want to permanently ban this user?"
+                                >
+
+                                    <i class="bi bi-slash-circle"></i>
+
+                                    Permanent Ban
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                    <!-- =================================
+                         PERMANENTLY BANNED
+                         ================================= -->
+
+                    {% elif user.account_status == "permanently_banned" %}
+
+                        <div class="admin-control-group">
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin_unban_user',
+                                    user_id=user.id
+                                ) }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="admin-btn admin-btn-success"
+                                >
+
+                                    <i class="bi bi-unlock"></i>
+
+                                    Unban User
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================
+                         DELETE
+                         ================================= -->
+
+                    <div class="admin-control-group mt-3 pt-3 border-top border-mate">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'admin_delete_user',
+                                user_id=user.id
+                            ) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="admin-btn admin-btn-danger"
+                                data-confirm="Are you sure you want to DELETE this account? This cannot be undone."
+                            >
+
+                                <i class="bi bi-trash3"></i>
+
+                                Delete Account
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="admin-empty-state">
+
+            <i class="bi bi-people"></i>
+
+            <h4>
+                No Users Registered
+            </h4>
+
+            <p>
+                Registered MATE users will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         BACK TO DASHBOARD
+         ================================================= -->
+
+    <div class="mt-4">
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="btn btn-mate-outline"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

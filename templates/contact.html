@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact MATE — Hire a Professional
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="text-center mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // CONTACT
+        </div>
+
+        <h1 class="dashboard-title">
+            Contact Us
+        </h1>
+
+        <div class="mate-section-line mx-auto mb-3"></div>
+
+        <p class="text-muted-mate">
+            Have a question? Send us a message.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- =================================================
+             CONTACT INFORMATION
+             ================================================= -->
+
+        <div class="col-lg-5">
+
+            <div class="mate-card p-4 p-md-5 h-100">
+
+                <div class="mate-label mb-3">
+                    GET IN TOUCH
+                </div>
+
+                <h3 class="mate-heading mb-3">
+                    We're here to help.
+                </h3>
+
+                <p class="text-muted-mate mb-4">
+                    If you have questions about MATE, bookings,
+                    professional profiles or the platform,
+                    you can send us a message using the form.
+                </p>
+
+
+                <!-- EMAIL -->
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-envelope me-2"></i>
+                        Email
+                    </span>
+
+                    <strong>
+                        support@mate.com
+                    </strong>
+
+                </div>
+
+
+                <!-- PLATFORM -->
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-globe2 me-2"></i>
+                        Platform
+                    </span>
+
+                    <strong>
+                        MATE
+                    </strong>
+
+                </div>
+
+
+                <!-- RESPONSE -->
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-clock me-2"></i>
+                        Support
+                    </span>
+
+                    <strong>
+                        Available
+                    </strong>
+
+                </div>
+
+
+                <div class="mt-4 p-3 mate-card">
+
+                    <p class="text-muted-mate small mb-0">
+                        Please don't include passwords or other
+                        sensitive account information in your
+                        message.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTACT FORM
+             ================================================= -->
+
+        <div class="col-lg-7">
+
+            <div class="mate-card p-4 p-md-5">
+
+                <div class="mate-label mb-2">
+                    SEND MESSAGE
+                </div>
+
+                <h3 class="mate-heading mb-4">
+                    Tell us how we can help
+                </h3>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('contact') }}"
+                >
+
+                    <!-- NAME -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="name"
+                            class="form-label"
+                        >
+                            Your Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter your name"
+                            value="{% if logged_in and current_user_name %}{{ current_user_name }}{% endif %}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="email"
+                            class="form-label"
+                        >
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="subject"
+                            class="form-label"
+                        >
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            class="form-control"
+                            placeholder="What is your message about?"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="message"
+                            class="form-label"
+                        >
+                            Message
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            class="form-control"
+                            rows="6"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-mate w-100"
+                    >
+
+                        <i class="bi bi-send me-2"></i>
+
+                        Send Message
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+<br>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="mate-auth-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8 col-lg-5">
+
+                <!-- HEADER -->
+
+                <div class="text-center mb-4">
+
+                    <div class="mate-label mb-3">
+                        MATE // LOGIN
+                    </div>
+
+                    <h1 class="mate-section-title">
+                        Welcome back.
+                    </h1>
+
+                    <div class="mate-section-line mx-auto"></div>
+
+                    <p class="mate-subheading">
+                        Log in to manage your MATE account.
+                    </p>
+
+                </div>
+
+
+                <!-- LOGIN CARD -->
+
+                <div class="mate-card p-4 p-md-5">
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('login') }}"
+                        data-loading
+                    >
+
+                        <!-- EMAIL -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="email"
+                                class="form-label mate-form-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control mate-input"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="mb-4">
+
+                            <div class="d-flex justify-content-between">
+
+                                <label
+                                    for="password"
+                                    class="form-label mate-form-label"
+                                >
+                                    Password
+                                </label>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <input
+                                    type="password"
+                                    class="form-control mate-input"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required
+                                    autocomplete="current-password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="btn mate-password-button password-toggle"
+                                    data-target="password"
+                                    aria-label="Show password"
+                                >
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REMEMBER / INFO -->
+
+                        <div class="d-flex align-items-center mb-4">
+
+                            <i class="bi bi-shield-lock text-mate me-2"></i>
+
+                            <span class="mate-form-help">
+                                Your password is securely protected.
+                            </span>
+
+                        </div>
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-mate w-100"
+                        >
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- REGISTER -->
+
+                <div class="text-center mt-4">
+
+                    <p class="text-muted-mate mb-0">
+
+                        Don't have an account?
+
+                        <a
+                            href="{{ url_for('register_choice') }}"
+                            class="mate-link"
+                        >
+                            Create one
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+                <!-- ADMIN LOGIN -->
+                 <div class="text-center mt-3">
+                    <p class="text-muted-mate mb-0">
+                        <i class="bi bi-shield-lock me-1"></i>
+                        MATE Administrator?
+                        <a
+                            href="{{ url_for('admin_login') }}"
+                            class="mate-link"
+                        >
+                            Admin Login
+                        </a>
+                    </p>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

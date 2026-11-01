@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Bookings — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // PROFESSIONAL BOOKINGS
+        </div>
+
+        <h1 class="dashboard-title">
+            My Bookings
+        </h1>
+
+        <p class="text-muted-mate">
+            View and manage booking requests from your clients.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         BOOKINGS
+         ================================================= -->
+
+    {% if bookings %}
+
+        <div class="row g-4">
+
+            {% for booking in bookings %}
+
+                <div class="col-12">
+
+                    <div class="mate-card p-4">
+
+                        <div class="row align-items-center">
+
+                            <!-- =================================================
+                                 CLIENT
+                                 ================================================= -->
+
+                            <div class="col-lg-3 mb-3 mb-lg-0">
+
+                                <div class="mate-label mb-2">
+                                    CLIENT
+                                </div>
+
+                                <h5 class="mate-heading mb-1">
+                                    {{ booking.user_name or "Unknown User" }}
+                                </h5>
+
+                                {% if booking.user_email %}
+
+                                    <p class="small text-muted-mate mb-1">
+                                        <i class="bi bi-envelope me-1"></i>
+                                        {{ booking.user_email }}
+                                    </p>
+
+                                {% endif %}
+
+                                {% if booking.user_phone %}
+
+                                    <p class="small text-muted-mate mb-0">
+                                        <i class="bi bi-telephone me-1"></i>
+                                        {{ booking.user_phone }}
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 SERVICE
+                                 ================================================= -->
+
+                            <div class="col-lg-3 mb-3 mb-lg-0">
+
+                                <div class="mate-label mb-2">
+                                    SERVICE
+                                </div>
+
+                                <h5 class="mate-heading mb-1">
+                                    {{ booking.service }}
+                                </h5>
+
+                                {% if booking.booking_date %}
+
+                                    <p class="small text-muted-mate mb-1">
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        {{ booking.booking_date }}
+                                    </p>
+
+                                {% endif %}
+
+                                {% if booking.booking_time %}
+
+                                    <p class="small text-muted-mate mb-0">
+                                        <i class="bi bi-clock me-1"></i>
+                                        {{ booking.booking_time }}
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 AMOUNT
+                                 ================================================= -->
+
+                            <div class="col-lg-2 mb-3 mb-lg-0">
+
+                                <div class="mate-label mb-2">
+                                    AMOUNT
+                                </div>
+
+                                <h5 class="mate-heading mb-0">
+                                    ₹{{ "%.2f"|format(booking.price or 0) }}
+                                </h5>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 STATUS
+                                 ================================================= -->
+
+                            <div class="col-lg-2 mb-3 mb-lg-0">
+
+                                <div class="mate-label mb-2">
+                                    STATUS
+                                </div>
+
+                                <span
+                                    class="booking-status status-{{ booking.status|lower }}"
+                                >
+                                    {{ booking.status|capitalize }}
+                                </span>
+
+                                {% if booking.status|lower == "accepted" %}
+
+                                    <p class="small text-muted-mate mt-2 mb-0">
+                                        Waiting for client payment
+                                    </p>
+
+                                {% elif booking.status|lower == "confirmed" %}
+
+                                    <p class="small text-muted-mate mt-2 mb-0">
+                                        Payment received
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 ACTION
+                                 ================================================= -->
+
+                            <div class="col-lg-2">
+
+                                <div class="d-flex gap-2 flex-wrap">
+
+
+                                    <!-- ================================
+                                         PENDING
+                                         ================================ -->
+
+                                    {% if booking.status|lower == "pending" %}
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'update_booking_status',
+                                                booking_id=booking.id
+                                            ) }}"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="status"
+                                                value="accepted"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-mate"
+                                            >
+                                                <i class="bi bi-check-lg me-1"></i>
+                                                Accept
+                                            </button>
+
+                                        </form>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'update_booking_status',
+                                                booking_id=booking.id
+                                            ) }}"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="status"
+                                                value="rejected"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-mate-outline"
+                                            >
+                                                <i class="bi bi-x-lg me-1"></i>
+                                                Reject
+                                            </button>
+
+                                        </form>
+
+
+                                    <!-- ================================
+                                         ACCEPTED
+                                         ================================ -->
+
+                                    {% elif booking.status|lower == "accepted" %}
+
+                                        <span class="text-muted-mate small">
+                                            <i class="bi bi-hourglass-split me-1"></i>
+                                            Awaiting payment
+                                        </span>
+
+
+                                    <!-- ================================
+                                         CONFIRMED
+                                         ================================ -->
+
+                                    {% elif booking.status|lower == "confirmed" %}
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'update_booking_status',
+                                                booking_id=booking.id
+                                            ) }}"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="status"
+                                                value="completed"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-mate"
+                                            >
+                                                <i class="bi bi-check-circle me-1"></i>
+                                                Complete
+                                            </button>
+
+                                        </form>
+
+
+                                    <!-- ================================
+                                         COMPLETED
+                                         ================================ -->
+
+                                    {% elif booking.status|lower == "completed" %}
+
+                                        <span class="text-muted-mate small">
+                                            <i class="bi bi-check-circle me-1"></i>
+                                            Completed
+                                        </span>
+
+
+                                    <!-- ================================
+                                         REJECTED
+                                         ================================ -->
+
+                                    {% elif booking.status|lower == "rejected" %}
+
+                                        <span class="text-muted-mate small">
+                                            <i class="bi bi-x-circle me-1"></i>
+                                            Rejected
+                                        </span>
+
+                                    {% endif %}
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="mate-card p-5 text-center">
+
+            <div class="empty-icon mb-3">
+                <i class="bi bi-calendar-x"></i>
+            </div>
+
+            <h3 class="mate-heading">
+                No bookings yet
+            </h3>
+
+            <p class="text-muted-mate mb-0">
+                When users book your services,
+                their booking requests will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+</section>
+
+{% endblock %}

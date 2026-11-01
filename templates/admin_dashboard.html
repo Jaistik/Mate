@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // ADMIN
+        </div>
+
+        <h1 class="dashboard-title">
+            Admin Dashboard
+        </h1>
+
+        <div class="mate-section-line mb-3"></div>
+
+        <p class="text-muted-mate">
+            Welcome, {{ session.get("admin_username", "Admin") }}.
+            Manage and monitor the MATE platform.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         STATISTICS
+         ================================================= -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- USERS -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Total Users
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ total_users }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFESSIONALS -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Professionals
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ total_professionals }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-person-workspace"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKINGS -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Total Bookings
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ total_bookings }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPLETED -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Completed Bookings
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ completed_bookings }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VERIFICATIONS -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Pending Verification
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ pending_professionals }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <div class="col-sm-6 col-lg-4">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted-mate mb-2">
+                            Unread Messages
+                        </p>
+
+                        <h2 class="mate-heading mb-0">
+                            {{ unread_messages }}
+                        </h2>
+
+                    </div>
+
+                    <div class="empty-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ADMIN ACTIONS
+         ================================================= -->
+
+    <div class="mb-4">
+
+        <div class="mate-label mb-2">
+            ADMIN // MANAGEMENT
+        </div>
+
+        <h2 class="mate-section-title">
+            Manage MATE
+        </h2>
+
+        <div class="mate-section-line"></div>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- USERS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <a
+                href="{{ url_for('admin_users') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="mate-card p-4 h-100">
+
+                    <i class="bi bi-people fs-2 text-mate"></i>
+
+                    <h5 class="mate-heading mt-3">
+                        Users
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        View and manage registered users.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- PROFESSIONALS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <a
+                href="{{ url_for('admin_professionals') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="mate-card p-4 h-100">
+
+                    <i class="bi bi-person-workspace fs-2 text-mate"></i>
+
+                    <h5 class="mate-heading mt-3">
+                        Professionals
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        Review and verify professionals.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- BOOKINGS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <a
+                href="{{ url_for('admin_bookings') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="mate-card p-4 h-100">
+
+                    <i class="bi bi-calendar-check fs-2 text-mate"></i>
+
+                    <h5 class="mate-heading mt-3">
+                        Bookings
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        Monitor all platform bookings.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <a
+                href="{{ url_for('admin_messages') }}"
+                class="text-decoration-none"
+            >
+
+                <div class="mate-card p-4 h-100">
+
+                    <i class="bi bi-envelope fs-2 text-mate"></i>
+
+                    <h5 class="mate-heading mt-3">
+                        Messages
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        View contact messages.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+</section>
+
+{% endblock %}

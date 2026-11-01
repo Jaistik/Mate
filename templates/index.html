@@ -1,0 +1,481 @@
+{% extends "base.html" %}
+
+{% block title %}MATE — Hire a Professional{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="mate-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+
+                <div class="mate-hero-content">
+
+                    <div class="mate-label mb-3">
+                        MATE // PROFESSIONAL SERVICES
+                    </div>
+
+                    <h1 class="mate-hero-title">
+                        Hire the
+                        <span>right professional.</span>
+                    </h1>
+
+                    <p class="mate-hero-description">
+                        Find skilled professionals for the services
+                        you need. Explore profiles, compare services,
+                        and book with confidence.
+                    </p>
+
+                    <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
+
+                        <a
+                            href="{{ url_for('explore') }}"
+                            class="btn btn-mate"
+                        >
+                            <i class="bi bi-search me-2"></i>
+                            Explore Professionals
+                        </a>
+
+                        <a
+                            href="{{ url_for('register_choice') }}"
+                            class="btn btn-mate-outline"
+                        >
+                            <i class="bi bi-person-plus me-2"></i>
+                            Get Started
+                        </a>
+
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-4 mt-4">
+
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-shield-check text-mate fs-5 me-2"></i>
+                            <span class="text-light-mate small">
+                                Trusted Professionals
+                            </span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-calendar-check text-mate fs-5 me-2"></i>
+                            <span class="text-light-mate small">
+                                Easy Booking
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <div class="mate-card p-4 p-md-5 text-center">
+
+                    <div
+                        class="mate-logo-mark mx-auto mb-4"
+                        style="
+                            width:80px;
+                            height:80px;
+                            font-size:1.7rem;
+                        "
+                    >
+                        M
+                    </div>
+
+                    <div class="mate-label mb-2">
+                        MATE NETWORK
+                    </div>
+
+                    <h2 class="mate-heading">
+                        Skilled people.
+                    </h2>
+
+                    <h2 class="mate-heading text-mate">
+                        Real services.
+                    </h2>
+
+                    <p class="text-muted-mate mt-3 mb-0">
+                        One platform connecting clients
+                        with professionals.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="mate-section mate-section-dark">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="mate-label mb-2">
+                SIMPLE PROCESS
+            </div>
+
+            <h2 class="mate-section-title">
+                How MATE works
+            </h2>
+
+            <div class="mate-section-line mx-auto"></div>
+
+            <p class="mate-subheading mx-auto" style="max-width:650px;">
+                Finding and hiring a professional doesn't
+                need to be complicated.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <div
+                            class="mate-logo-mark me-3"
+                            style="width:42px;height:42px;"
+                        >
+                            01
+                        </div>
+
+                        <h4 class="mate-heading mb-0">
+                            Explore
+                        </h4>
+
+                    </div>
+
+                    <p class="text-muted-mate mb-0">
+                        Browse professionals by profession,
+                        category, location, experience, and
+                        service.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <div
+                            class="mate-logo-mark me-3"
+                            style="width:42px;height:42px;"
+                        >
+                            02
+                        </div>
+
+                        <h4 class="mate-heading mb-0">
+                            Book
+                        </h4>
+
+                    </div>
+
+                    <p class="text-muted-mate mb-0">
+                        Choose a professional, select an
+                        available date and time, and send
+                        your booking request.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <div
+                            class="mate-logo-mark me-3"
+                            style="width:42px;height:42px;"
+                        >
+                            03
+                        </div>
+
+                        <h4 class="mate-heading mb-0">
+                            Connect
+                        </h4>
+
+                    </div>
+
+                    <p class="text-muted-mate mb-0">
+                        Manage your booking, complete the
+                        service, and leave a review after
+                        the experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WHY MATE -->
+<section class="mate-section">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <div class="mate-label mb-2">
+                    WHY MATE
+                </div>
+
+                <h2 class="mate-section-title">
+                    A better way to find skilled professionals.
+                </h2>
+
+                <div class="mate-section-line"></div>
+
+                <p class="mate-subheading mb-4">
+                    MATE brings users and professionals together
+                    through a simple platform designed around
+                    discovery, booking, and communication.
+                </p>
+
+
+                <div class="d-flex mb-4">
+
+                    <div class="me-3">
+                        <i class="bi bi-person-check text-mate fs-3"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="mate-heading">
+                            Professional Profiles
+                        </h5>
+
+                        <p class="text-muted-mate mb-0">
+                            View professional information,
+                            experience, qualifications,
+                            services, and pricing.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex mb-4">
+
+                    <div class="me-3">
+                        <i class="bi bi-calendar2-check text-mate fs-3"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="mate-heading">
+                            Convenient Booking
+                        </h5>
+
+                        <p class="text-muted-mate mb-0">
+                            Select suitable dates and times
+                            based on professional availability.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex">
+
+                    <div class="me-3">
+                        <i class="bi bi-star text-mate fs-3"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="mate-heading">
+                            Reviews
+                        </h5>
+
+                        <p class="text-muted-mate mb-0">
+                            Users can share their experience
+                            and help others make informed
+                            decisions.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="mate-card p-4">
+
+                    <div class="mate-label mb-3">
+                        PLATFORM OVERVIEW
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    Professionals
+                                </div>
+                                <div class="stat-value">
+                                    Discover
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    Services
+                                </div>
+                                <div class="stat-value">
+                                    Explore
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    Bookings
+                                </div>
+                                <div class="stat-value">
+                                    Manage
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-label">
+                                    Reviews
+                                </div>
+                                <div class="stat-value">
+                                    Share
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROFESSIONAL CTA -->
+<section class="mate-section mate-section-dark">
+
+    <div class="container">
+
+        <div
+            class="mate-card p-4 p-md-5"
+            style="border-left:4px solid var(--mate-red);"
+        >
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-8">
+
+                    <div class="mate-label mb-2">
+                        FOR PROFESSIONALS
+                    </div>
+
+                    <h2 class="mate-heading mb-2">
+                        Ready to offer your services?
+                    </h2>
+
+                    <p class="text-muted-mate mb-0">
+                        Create your professional profile,
+                        showcase your skills, manage bookings,
+                        and connect with potential clients.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-4 text-lg-end">
+
+                    <a
+                        href="{{ url_for('register_professional') }}"
+                        class="btn btn-mate"
+                    >
+                        Become a Professional
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="mate-section">
+
+    <div class="container text-center">
+
+        <div class="mate-label mb-2">
+            START WITH MATE
+        </div>
+
+        <h2 class="mate-section-title">
+            Find the right person for the job.
+        </h2>
+
+        <div class="mate-section-line mx-auto"></div>
+
+        <p
+            class="mate-subheading mx-auto mb-4"
+            style="max-width:600px;"
+        >
+            Explore professionals and find the services
+            you need through MATE.
+        </p>
+
+        <a
+            href="{{ url_for('explore') }}"
+            class="btn btn-mate"
+        >
+            Explore Professionals
+            <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

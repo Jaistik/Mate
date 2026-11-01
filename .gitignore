@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.env
+.venv/
+venv/
+instance/
+.DS_Store
+
+# Local databases — do not upload automatically
+*.db
+*.sqlite
+*.sqlite3
+
+# User uploads
+static/uploads/

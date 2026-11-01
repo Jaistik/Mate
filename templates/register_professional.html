@@ -1,0 +1,668 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register as Professional — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-section py-5">
+
+```
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9 col-xl-8">
+
+            <!-- HEADER -->
+
+            <div class="text-center mb-5">
+
+                <div class="mate-label mb-2">
+                    MATE // PROFESSIONAL REGISTRATION
+                </div>
+
+                <h1 class="dashboard-title">
+                    Create Your Professional Account
+                </h1>
+
+                <p class="text-muted-mate">
+                    Join MATE and offer your professional services
+                    to people looking for trusted professionals.
+                </p>
+
+            </div>
+
+
+            <!-- FLASH MESSAGES -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="alert alert-{{ category }} alert-dismissible fade show"
+                            role="alert"
+                        >
+                            {{ message }}
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close"
+                            ></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            <!-- REGISTRATION CARD -->
+
+            <div class="mate-card p-4 p-md-5">
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    <!-- =========================================
+                         PERSONAL INFORMATION
+                         ========================================= -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            01 // PERSONAL INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Tell us about yourself
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- FULL NAME -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="full_name"
+                                class="form-label"
+                            >
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="full_name"
+                                name="full_name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="email"
+                                class="form-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="phone"
+                                class="form-label"
+                            >
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                            >
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="location"
+                                class="form-label"
+                            >
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="location"
+                                name="location"
+                                placeholder="e.g. Mumbai"
+                            >
+
+                        </div>
+
+
+                        <!-- PROFILE PHOTO -->
+
+                        <div class="col-12">
+
+                            <label
+                                for="profile_photo"
+                                class="form-label"
+                            >
+                                Professional Profile Photo
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="profile_photo"
+                                name="profile_photo"
+                                accept=".jpg,.jpeg,.png,.webp"
+                            >
+
+                            <div class="form-text">
+                                JPG, JPEG, PNG or WEBP. Maximum size: 5 MB.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- =========================================
+                         PROFESSIONAL INFORMATION
+                         ========================================= -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            02 // PROFESSIONAL INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Your professional details
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- PROFESSION -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="profession"
+                                class="form-label"
+                            >
+                                Profession
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="profession"
+                                name="profession"
+                                placeholder="e.g. Web Developer"
+                            >
+
+                        </div>
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="category"
+                                class="form-label"
+                            >
+                                Category
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="category"
+                                name="category"
+                            >
+
+                                <option value="">
+                                    Select a category
+                                </option>
+
+                                <option value="Technology">
+                                    Technology
+                                </option>
+
+                                <option value="Design">
+                                    Design
+                                </option>
+
+                                <option value="Writing">
+                                    Writing
+                                </option>
+
+                                <option value="Photography">
+                                    Photography
+                                </option>
+
+                                <option value="Marketing">
+                                    Marketing
+                                </option>
+
+                                <option value="Education">
+                                    Education
+                                </option>
+
+                                <option value="Home Services">
+                                    Home Services
+                                </option>
+
+                                <option value="Business">
+                                    Business
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- EXPERIENCE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="experience"
+                                class="form-label"
+                            >
+                                Experience
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="experience"
+                                    name="experience"
+                                    min="0"
+                                    value="0"
+                                    placeholder="Years"
+                                >
+
+                                <span class="input-group-text">
+                                    Years
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- QUALIFICATION -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="qualification"
+                                class="form-label"
+                            >
+                                Qualification
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="qualification"
+                                name="qualification"
+                                placeholder="e.g. BSc Computer Science"
+                            >
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="col-12">
+
+                            <label
+                                for="description"
+                                class="form-label"
+                            >
+                                Professional Description
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="Describe your skills, experience and services..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- =========================================
+                         SERVICE INFORMATION
+                         ========================================= -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            03 // SERVICE INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            What do you offer?
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- SERVICE AREA -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="service_area"
+                                class="form-label"
+                            >
+                                Service Area
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="service_area"
+                                name="service_area"
+                                placeholder="e.g. Mumbai / Remote"
+                            >
+
+                        </div>
+
+
+                        <!-- SERVICE PRICE -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="service_price"
+                                class="form-label"
+                            >
+                                Service Price
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="service_price"
+                                name="service_price"
+                                min="0"
+                                step="0.01"
+                                value="0"
+                                placeholder="Enter price"
+                            >
+
+                        </div>
+
+
+                        <!-- PRICE UNIT -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="price_unit"
+                                class="form-label"
+                            >
+                                Price Unit
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="price_unit"
+                                name="price_unit"
+                            >
+
+                                <option value="hour">
+                                    Per Hour
+                                </option>
+
+                                <option value="day">
+                                    Per Day
+                                </option>
+
+                                <option value="project">
+                                    Per Project
+                                </option>
+
+                                <option value="service">
+                                    Per Service
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- START TIME -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="start_time"
+                                class="form-label"
+                            >
+                                Available From
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="start_time"
+                                name="start_time"
+                            >
+
+                        </div>
+
+
+                        <!-- END TIME -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="end_time"
+                                class="form-label"
+                            >
+                                Available Until
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="end_time"
+                                name="end_time"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- =========================================
+                         ACCOUNT SECURITY
+                         ========================================= -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            04 // ACCOUNT SECURITY
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Create your password
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <!-- PASSWORD -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="password"
+                                class="form-label"
+                            >
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                minlength="6"
+                                placeholder="Minimum 6 characters"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- CONFIRM PASSWORD -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="confirm_password"
+                                class="form-label"
+                            >
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="confirm_password"
+                                name="confirm_password"
+                                minlength="6"
+                                placeholder="Re-enter your password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <div class="mt-5">
+
+                        <button
+                            type="submit"
+                            class="btn btn-mate w-100"
+                        >
+                            Create Professional Account
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+
+                    </div>
+
+
+                    <!-- LOGIN -->
+
+                    <div class="text-center mt-4">
+
+                        <p class="text-muted-mate mb-0">
+
+                            Already have an account?
+
+                            <a
+                                href="{{ url_for('login') }}"
+                                class="mate-link"
+                            >
+                                Login
+                            </a>
+
+                        </p>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

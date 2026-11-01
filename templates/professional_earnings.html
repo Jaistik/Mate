@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Earnings — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="dashboard-header mb-4">
+
+            <div>
+
+                <div class="mate-label mb-2">
+                    MATE // PROFESSIONAL EARNINGS
+                </div>
+
+                <h1 class="dashboard-title">
+                    Your Earnings
+                </h1>
+
+                <p class="text-muted-mate mb-0">
+                    Track your earnings from completed bookings.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EARNING SUMMARY
+             ================================================= -->
+
+        <div class="row g-4 mb-5">
+
+
+            <!-- TOTAL EARNINGS -->
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="dashboard-card-icon mb-3">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+
+                    <div class="mate-label">
+                        TOTAL EARNINGS
+                    </div>
+
+                    <h2 class="mate-heading mt-2 mb-0">
+                        ₹{{ "%.2f"|format(total_earnings) }}
+                    </h2>
+
+                    <p class="text-muted-mate small mt-2 mb-0">
+                        From completed bookings
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLETED JOBS -->
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="dashboard-card-icon mb-3">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                    <div class="mate-label">
+                        COMPLETED JOBS
+                    </div>
+
+                    <h2 class="mate-heading mt-2 mb-0">
+                        {{ completed_jobs }}
+                    </h2>
+
+                    <p class="text-muted-mate small mt-2 mb-0">
+                        Successfully completed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- AVERAGE -->
+
+            <div class="col-md-4">
+
+                <div class="mate-card p-4 h-100">
+
+                    <div class="dashboard-card-icon mb-3">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+
+                    <div class="mate-label">
+                        AVERAGE PER JOB
+                    </div>
+
+                    <h2 class="mate-heading mt-2 mb-0">
+                        ₹{{ "%.2f"|format(average_earning) }}
+                    </h2>
+
+                    <p class="text-muted-mate small mt-2 mb-0">
+                        Average completed booking
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             COMPLETED BOOKINGS
+             ================================================= -->
+
+        <div class="mate-card p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <div class="mate-label">
+                        PAYMENT ACTIVITY
+                    </div>
+
+                    <h3 class="mate-heading mb-0">
+                        Completed Jobs
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            {% if completed_bookings %}
+
+                <div class="table-responsive">
+
+                    <table class="table mate-table align-middle">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Client
+                                </th>
+
+                                <th>
+                                    Service
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th class="text-end">
+                                    Amount
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for booking in completed_bookings %}
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>
+                                            {{ booking.user_name or "Unknown Client" }}
+                                        </strong>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {{ booking.service or "Service" }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {{ booking.booking_date or "—" }}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="booking-status status-completed">
+                                            Completed
+                                        </span>
+
+                                    </td>
+
+
+                                    <td class="text-end">
+
+                                        <strong>
+                                            ₹{{ "%.2f"|format(booking.price or 0) }}
+                                        </strong>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <!-- EMPTY STATE -->
+
+                <div class="empty-dashboard text-center py-5">
+
+                    <div class="empty-icon">
+
+                        <i class="bi bi-wallet2"></i>
+
+                    </div>
+
+                    <h5 class="mate-heading">
+                        No earnings yet
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        Your earnings will appear here
+                        after you complete a booking.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

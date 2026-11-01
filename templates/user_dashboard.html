@@ -1,0 +1,452 @@
+{% extends "base.html" %}
+
+{% block title %}
+    User Dashboard — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- =================================================
+             DASHBOARD HEADER
+             ================================================= -->
+
+        <div class="dashboard-header mb-4">
+
+            <div>
+
+                <div class="mate-label mb-2">
+                    MATE // USER DASHBOARD
+                </div>
+
+                <h1 class="dashboard-title">
+                    Welcome, {{ user.full_name }}.
+                </h1>
+
+                <p class="text-muted-mate mb-0">
+                    Find professionals, manage your bookings,
+                    and keep track of your activity.
+                </p>
+
+            </div>
+
+
+            <!-- PROFILE PHOTO -->
+
+            <div class="dashboard-profile">
+
+                {% if user.profile_photo %}
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='uploads/user/' + user.profile_photo
+                        ) }}"
+                        alt="Profile photo"
+                        class="dashboard-profile-image"
+                    >
+
+                {% else %}
+
+                    <div class="dashboard-profile-placeholder">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+             ================================================= -->
+
+        <div class="row g-4 mb-5">
+
+            <!-- EXPLORE -->
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('explore') }}"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="dashboard-action-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            Explore Professionals
+                        </h5>
+
+                        <p>
+                            Find the right professional
+                            for your needs.
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-arrow-right action-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- BOOKINGS -->
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('booking_history') }}"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="dashboard-action-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            My Bookings
+                        </h5>
+
+                        <p>
+                            View and manage your bookings.
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-arrow-right action-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <div class="col-md-4">
+
+                <a
+                    href="{{ url_for('user_profile') }}"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="dashboard-action-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                    <div>
+
+                        <h5>
+                            My Profile
+                        </h5>
+
+                        <p>
+                            Update your personal information.
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-arrow-right action-arrow"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MAIN DASHBOARD
+             ================================================= -->
+
+        <div class="row g-4">
+
+
+            <!-- LEFT COLUMN -->
+
+            <div class="col-lg-8">
+
+
+                <!-- WELCOME CARD -->
+
+                <div class="mate-card p-4 mb-4">
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <div class="dashboard-card-icon me-3">
+                            <i class="bi bi-compass"></i>
+                        </div>
+
+                        <div>
+
+                            <div class="mate-label">
+                                DISCOVER
+                            </div>
+
+                            <h3 class="mate-heading mb-0">
+                                Find someone for the job
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-muted-mate">
+                        MATE helps you discover professionals
+                        based on their services, experience,
+                        location, and pricing.
+                    </p>
+
+                    <a
+                        href="{{ url_for('explore') }}"
+                        class="btn btn-mate"
+                    >
+                        Explore Professionals
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+
+                <!-- RECENT BOOKINGS -->
+
+                <div class="mate-card p-4">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+
+                            <div class="mate-label">
+                                ACTIVITY
+                            </div>
+
+                            <h3 class="mate-heading mb-0">
+                                Recent Bookings
+                            </h3>
+
+                        </div>
+
+                        <a
+                            href="{{ url_for('booking_history') }}"
+                            class="mate-link small"
+                        >
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    {% if bookings %}
+
+                        {% for booking in bookings[:5] %}
+
+                            <div class="booking-row">
+
+                                <div class="booking-row-icon">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+
+                                <div class="flex-grow-1">
+
+                                    <h6 class="mb-1">
+                                        {{ booking.service }}
+                                    </h6>
+
+                                    <p class="small text-muted-mate mb-0">
+                                        {{ booking.professional_name }}
+                                        {% if booking.booking_date %}
+                                            • {{ booking.booking_date }}
+                                        {% endif %}
+                                    </p>
+
+                                </div>
+
+
+                                <span
+                                    class="booking-status status-{{ booking.status|lower }}"
+                                >
+                                    {{ booking.status }}
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-dashboard text-center py-4">
+
+                            <div class="empty-icon">
+                                <i class="bi bi-calendar-x"></i>
+                            </div>
+
+                            <h5 class="mate-heading">
+                                No bookings yet
+                            </h5>
+
+                            <p class="text-muted-mate mb-3">
+                                Your upcoming and previous bookings
+                                will appear here.
+                            </p>
+
+                            <a
+                                href="{{ url_for('explore') }}"
+                                class="btn btn-mate-outline"
+                            >
+                                Find a Professional
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT COLUMN -->
+
+            <div class="col-lg-4">
+
+
+                <!-- ACCOUNT CARD -->
+
+                <div class="mate-card p-4 mb-4">
+
+                    <div class="mate-label mb-2">
+                        ACCOUNT
+                    </div>
+
+                    <h4 class="mate-heading mb-4">
+                        Account Overview
+                    </h4>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-person me-2"></i>
+                            Name
+                        </span>
+
+                        <strong>
+                            {{ user.full_name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-envelope me-2"></i>
+                            Email
+                        </span>
+
+                        <strong class="text-truncate">
+                            {{ user.email }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-telephone me-2"></i>
+                            Phone
+                        </span>
+
+                        <strong>
+                            {{ user.phone or "Not added" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Location
+                        </span>
+
+                        <strong>
+                            {{ user.location or "Not added" }}
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        href="{{ url_for('user_profile') }}"
+                        class="btn btn-mate-outline w-100 mt-3"
+                    >
+                        Edit Profile
+                    </a>
+
+                </div>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="mate-card p-4">
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <div class="dashboard-card-icon me-3">
+                            <i class="bi bi-bell"></i>
+                        </div>
+
+                        <div>
+
+                            <div class="mate-label">
+                                UPDATES
+                            </div>
+
+                            <h5 class="mate-heading mb-0">
+                                Notifications
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-muted-mate small">
+                        Stay updated about your bookings,
+                        requests, and activity.
+                    </p>
+
+                    <a
+                        href="{{ url_for('notifications') }}"
+                        class="mate-link"
+                    >
+                        View Notifications
+                        <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<br>
+{% endblock %}

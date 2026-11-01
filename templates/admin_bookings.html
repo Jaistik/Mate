@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Bookings — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // ADMIN // BOOKINGS
+        </div>
+
+        <h1 class="dashboard-title">
+            Manage Bookings
+        </h1>
+
+        <div class="mate-section-line mb-3"></div>
+
+        <p class="text-muted-mate">
+            Monitor bookings between users and professionals.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         BOOKING COUNT
+         ================================================= -->
+
+    <div class="mate-card p-4 mb-4">
+
+        <div class="d-flex align-items-center">
+
+            <i class="bi bi-calendar-check fs-2 text-mate me-3"></i>
+
+            <div>
+
+                <div class="text-muted-mate">
+                    Total Bookings
+                </div>
+
+                <h3 class="mate-heading mb-0">
+                    {{ bookings|length }}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         BOOKING LIST
+         ================================================= -->
+
+    {% if bookings %}
+
+        <div class="row g-4">
+
+            {% for booking in bookings %}
+
+                <div class="col-12">
+
+                    <div class="mate-card p-4">
+
+                        <!-- =================================
+                             TOP SECTION
+                             ================================= -->
+
+                        <div class="row g-4">
+
+                            <!-- BOOKING -->
+
+                            <div class="col-md-4">
+
+                                <div class="mate-label mb-2">
+                                    BOOKING #{{ booking.id }}
+                                </div>
+
+                                <h4 class="mate-heading mb-3">
+                                    {{ booking.service or "Professional Service" }}
+                                </h4>
+
+
+                                <div class="booking-detail mb-2">
+
+                                    <i class="bi bi-calendar3 me-2"></i>
+
+                                    {{ booking.booking_date }}
+
+                                </div>
+
+
+                                <div class="booking-detail mb-2">
+
+                                    <i class="bi bi-clock me-2"></i>
+
+                                    {{ booking.booking_time }}
+
+                                </div>
+
+
+                                <div class="booking-detail">
+
+                                    <i class="bi bi-currency-rupee me-2"></i>
+
+                                    ₹{{ "%.2f"|format(
+                                        booking.price or 0
+                                    ) }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- USER -->
+
+                            <div class="col-md-4">
+
+                                <div class="mate-label mb-2">
+                                    USER
+                                </div>
+
+                                <h5 class="mate-heading mb-2">
+                                    {{ booking.user_name or "Unknown User" }}
+                                </h5>
+
+
+                                {% if booking.user_email %}
+
+                                    <div class="booking-detail">
+
+                                        <i class="bi bi-envelope me-2"></i>
+
+                                        {{ booking.user_email }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- PROFESSIONAL -->
+
+                            <div class="col-md-4">
+
+                                <div class="mate-label mb-2">
+                                    PROFESSIONAL
+                                </div>
+
+                                <h5 class="mate-heading mb-2">
+                                    {{ booking.professional_name or "Unknown Professional" }}
+                                </h5>
+
+
+                                {% if booking.professional_profession %}
+
+                                    <p class="text-muted-mate mb-2">
+                                        {{ booking.professional_profession }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                {% if booking.professional_email %}
+
+                                    <div class="booking-detail">
+
+                                        <i class="bi bi-envelope me-2"></i>
+
+                                        {{ booking.professional_email }}
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <hr class="my-4">
+
+
+                        <!-- =================================
+                             STATUS + CREATED
+                             ================================= -->
+
+                        <div class="row align-items-center g-3">
+
+                            <div class="col-md-6">
+
+                                <span class="text-muted-mate me-2">
+                                    Status:
+                                </span>
+
+
+                                {% if booking.status == "pending" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif booking.status == "accepted" %}
+
+                                    <span class="badge bg-info text-dark">
+                                        Accepted
+                                    </span>
+
+                                {% elif booking.status == "confirmed" %}
+
+                                    <span class="badge bg-primary">
+                                        Confirmed
+                                    </span>
+
+                                {% elif booking.status == "completed" %}
+
+                                    <span class="badge bg-success">
+                                        Completed
+                                    </span>
+
+                                {% elif booking.status == "rejected" %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ booking.status or "Unknown" }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="col-md-6 text-md-end">
+
+                                <span class="text-muted-mate">
+                                    Created:
+                                </span>
+
+                                <span class="mate-heading ms-1">
+                                    {{ booking.created_at }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             MESSAGE
+                             ================================= -->
+
+                        {% if booking.message %}
+
+                            <hr class="my-4">
+
+                            <div>
+
+                                <div class="mate-label mb-2">
+                                    USER MESSAGE
+                                </div>
+
+                                <p class="text-muted-mate mb-0">
+                                    {{ booking.message }}
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="mate-card text-center p-5">
+
+            <div class="empty-icon mb-3">
+
+                <i class="bi bi-calendar-x"></i>
+
+            </div>
+
+            <h3 class="mate-heading">
+                No bookings yet
+            </h3>
+
+            <p class="text-muted-mate mb-0">
+                Bookings will appear here once users
+                start hiring professionals.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         BACK TO DASHBOARD
+         ================================================= -->
+
+    <div class="mt-5">
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="btn btn-mate-outline"
+        >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+<br>
+</section>
+{% endblock %}

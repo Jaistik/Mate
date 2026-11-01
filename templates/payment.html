@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}
+Payment — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="text-center mb-5">
+
+            <div class="mate-label mb-2">
+                MATE // PAYMENT
+            </div>
+
+            <h1 class="dashboard-title">
+                Complete Payment
+            </h1>
+
+            <div class="mate-section-line mx-auto mb-3"></div>
+
+            <p class="text-muted-mate">
+                Complete your payment to confirm the booking.
+            </p>
+
+        </div>
+
+
+        <div class="row justify-content-center g-4">
+
+            <!-- BOOKING SUMMARY -->
+
+            <div class="col-lg-7">
+
+                <div class="mate-card p-4 p-md-5">
+
+                    <div class="mate-label mb-3">
+                        BOOKING SUMMARY
+                    </div>
+
+
+                    <!-- PROFESSIONAL -->
+
+                    <div class="d-flex align-items-center gap-3 mb-4">
+
+                        {% if booking.professional_photo %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + booking.professional_photo
+                                ) }}"
+                                alt="{{ booking.professional_name }}"
+                                class="profile-image-small"
+                            >
+
+                        {% else %}
+
+                            <div class="profile-image-small professional-placeholder-small">
+                                <i class="bi bi-person"></i>
+                            </div>
+
+                        {% endif %}
+
+
+                        <div>
+
+                            <h4 class="mate-heading mb-1">
+                                {{ booking.professional_name }}
+                            </h4>
+
+                            <p class="text-muted-mate mb-0">
+                                {{ booking.professional_profession or "Professional Service" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DETAILS -->
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-briefcase me-2"></i>
+                            Service
+                        </span>
+
+                        <strong>
+                            {{ booking.service }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-calendar3 me-2"></i>
+                            Date
+                        </span>
+
+                        <strong>
+                            {{ booking.booking_date }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-clock me-2"></i>
+                            Time
+                        </span>
+
+                        <strong>
+                            {{ booking.booking_time }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dashboard-info-row">
+
+                        <span>
+                            <i class="bi bi-check-circle me-2"></i>
+                            Status
+                        </span>
+
+                        <span class="booking-status status-accepted">
+                            Accepted
+                        </span>
+
+                    </div>
+
+
+                    <!-- PAYMENT AMOUNT -->
+
+                    <div class="mate-card p-4 mt-4">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <span class="text-muted-mate">
+                                Amount to Pay
+                            </span>
+
+                            <strong class="professional-price fs-4">
+                                ₹{{ "%.2f"|format(booking.price or 0) }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT BUTTON -->
+
+                    <div class="mt-4">
+
+                        <button
+                            type="button"
+                            id="razorpay-pay-button"
+                            class="btn btn-mate w-100"
+
+                            data-key="{{ razorpay_key_id }}"
+                            data-order-id="{{ razorpay_order_id }}"
+                            data-amount="{{ (booking.price or 0) * 100 }}"
+                            data-booking-id="{{ booking.id }}"
+                            data-verify-url="{{ url_for('verify_payment', booking_id=booking.id) }}"
+                        >
+
+                            <i class="bi bi-credit-card me-2"></i>
+
+                            Pay ₹{{ "%.2f"|format(booking.price or 0) }}
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- PAYMENT INFORMATION -->
+
+                    <div class="text-center mt-3">
+
+                        <small class="text-muted-mate">
+
+                            <i class="bi bi-shield-check me-1"></i>
+
+                            Secure payment powered by Razorpay
+
+                        </small>
+
+                    </div>
+
+
+                    <!-- BACK -->
+
+                    <a
+                        href="{{ url_for('booking_history') }}"
+                        class="btn btn-mate-outline w-100 mt-3"
+                    >
+
+                        <i class="bi bi-arrow-left me-2"></i>
+
+                        Back to Booking History
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RAZORPAY CHECKOUT -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+{% endblock %}
+

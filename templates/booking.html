@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}
+Book Professional — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="text-center mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // BOOKING
+        </div>
+
+        <h1 class="dashboard-title">
+            Book a Professional
+        </h1>
+
+        <div class="mate-section-line mx-auto mb-3"></div>
+
+        <p class="text-muted-mate">
+            Send a booking request to your selected professional.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- =================================================
+             PROFESSIONAL SUMMARY
+             ================================================= -->
+
+        <div class="col-lg-5">
+
+            <div class="mate-card p-4 h-100">
+
+                <div class="mate-label mb-3">
+                    PROFESSIONAL
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="text-center mb-4">
+
+                    <div class="professional-card-photo mb-3">
+
+                        {% if professional.profile_photo %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='uploads/professional/' + professional.profile_photo
+                                ) }}"
+                                alt="{{ professional.full_name }}"
+                                class="profile-image-large"
+                            >
+
+                        {% else %}
+
+                            <div class="professional-placeholder">
+                                <i class="bi bi-person"></i>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <h3 class="mate-heading mb-1">
+                        {{ professional.full_name }}
+                    </h3>
+
+
+                    <p class="professional-title mb-2">
+                        {{ professional.profession or "Professional Service" }}
+                    </p>
+
+
+                    {% if professional.category %}
+
+                        <span class="booking-status status-approved">
+                            {{ professional.category }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PROFESSIONAL INFORMATION -->
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-briefcase me-2"></i>
+                        Experience
+                    </span>
+
+                    <strong>
+                        {{ professional.experience or 0 }} years
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-geo-alt me-2"></i>
+                        Location
+                    </span>
+
+                    <strong>
+                        {{ professional.location or "Not specified" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-currency-rupee me-2"></i>
+                        Price
+                    </span>
+
+                    <strong>
+                        ₹{{ "%.2f"|format(
+                            professional.service_price or 0
+                        ) }}
+                        / {{ professional.price_unit or "hour" }}
+                    </strong>
+
+                </div>
+
+
+                {% if professional.description %}
+
+                    <div class="mt-4">
+
+                        <div class="mate-label mb-2">
+                            ABOUT
+                        </div>
+
+                        <p class="text-muted-mate mb-0">
+                            {{ professional.description }}
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             BOOKING FORM
+             ================================================= -->
+
+        <div class="col-lg-7">
+
+            <div class="mate-card p-4 p-md-5">
+
+                <div class="mate-label mb-2">
+                    BOOKING REQUEST
+                </div>
+
+                <h3 class="mate-heading mb-2">
+                    Schedule Your Booking
+                </h3>
+
+                <p class="text-muted-mate mb-4">
+                    Choose when you would like the professional
+                    to provide the service.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'booking',
+                        professional_id=professional.id
+                    ) }}"
+                >
+
+                    <!-- SERVICE -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="service"
+                            class="form-label"
+                        >
+                            Service
+                        </label>
+
+                        <input
+                            type="text"
+                            id="service"
+                            name="service"
+                            class="form-control"
+                            value="{{ professional.profession or '' }}"
+                            placeholder="Enter the service you need"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DATE + TIME -->
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="booking_date"
+                                class="form-label"
+                            >
+                                Booking Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="booking_date"
+                                name="booking_date"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="booking_time"
+                                class="form-label"
+                            >
+                                Booking Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="booking_time"
+                                name="booking_time"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="mt-4 mb-4">
+
+                        <label
+                            for="message"
+                            class="form-label"
+                        >
+                            Message
+                            <span class="text-muted-mate">
+                                (Optional)
+                            </span>
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            class="form-control"
+                            rows="5"
+                            placeholder="Tell the professional what you need help with..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- PRICE SUMMARY -->
+
+                    <div class="mate-card p-3 mb-4">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <span class="text-muted-mate">
+                                Estimated Service Price
+                            </span>
+
+                            <strong class="professional-price">
+
+                                ₹{{ "%.2f"|format(
+                                    professional.service_price or 0
+                                ) }}
+
+                                <span class="text-muted-mate">
+                                    / {{ professional.price_unit or "hour" }}
+                                </span>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-mate w-100"
+                    >
+
+                        <i class="bi bi-calendar-check me-2"></i>
+
+                        Send Booking Request
+
+                    </button>
+
+
+                    <!-- CANCEL -->
+
+                    <a
+                        href="{{ url_for(
+                            'professional_details',
+                            professional_id=professional.id
+                        ) }}"
+                        class="btn btn-mate-outline w-100 mt-3"
+                    >
+
+                        <i class="bi bi-arrow-left me-2"></i>
+
+                        Back to Professional
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =========================================================
+     MINIMUM DATE SCRIPT
+     ========================================================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const dateInput =
+            document.getElementById("booking_date");
+
+        if (dateInput) {
+
+            const today =
+                new Date().toISOString().split("T")[0];
+
+            dateInput.min = today;
+
+        }
+
+    });
+
+</script>
+
+{% endblock %}

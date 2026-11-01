@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Schedule — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="dashboard-header mb-4">
+
+            <div>
+
+                <div class="mate-label mb-2">
+                    MATE // PROFESSIONAL SCHEDULE
+                </div>
+
+                <h1 class="dashboard-title">
+                    Your Schedule
+                </h1>
+
+                <p class="text-muted-mate mb-0">
+                    Keep track of your upcoming professional bookings.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SCHEDULE
+             ================================================= -->
+
+        <div class="mate-card p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <div class="mate-label">
+                        UPCOMING
+                    </div>
+
+                    <h3 class="mate-heading mb-0">
+                        Scheduled Bookings
+                    </h3>
+
+                </div>
+
+                <div class="dashboard-card-icon">
+                    <i class="bi bi-calendar3"></i>
+                </div>
+
+            </div>
+
+
+            {% if bookings %}
+
+                <div class="schedule-list">
+
+                    {% for booking in bookings %}
+
+                        <div class="schedule-item">
+
+                            <!-- DATE -->
+
+                            <div class="schedule-date">
+
+                                <div class="schedule-date-day">
+                                    {{ booking.booking_date or "—" }}
+                                </div>
+
+                                {% if booking.booking_time %}
+
+                                    <div class="schedule-date-time">
+                                        {{ booking.booking_time }}
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- BOOKING INFORMATION -->
+
+                            <div class="schedule-details flex-grow-1">
+
+                                <div class="mate-label mb-1">
+                                    BOOKING #{{ booking.id }}
+                                </div>
+
+                                <h5 class="mate-heading mb-1">
+                                    {{ booking.service or "Professional Service" }}
+                                </h5>
+
+                                <p class="text-muted-mate mb-2">
+
+                                    <i class="bi bi-person me-1"></i>
+
+                                    {{ booking.user_name or "Client" }}
+
+                                </p>
+
+                                {% if booking.user_phone %}
+
+                                    <p class="small text-muted-mate mb-0">
+
+                                        <i class="bi bi-telephone me-1"></i>
+
+                                        {{ booking.user_phone }}
+
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <div class="schedule-status">
+
+                                <span class="booking-status status-{{ booking.status|lower }}">
+
+                                    {{ booking.status|capitalize }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <!-- EMPTY STATE -->
+
+                <div class="empty-dashboard text-center py-5">
+
+                    <div class="empty-icon">
+
+                        <i class="bi bi-calendar-x"></i>
+
+                    </div>
+
+                    <h5 class="mate-heading">
+                        Your schedule is empty
+                    </h5>
+
+                    <p class="text-muted-mate mb-0">
+                        Accepted bookings will appear here.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

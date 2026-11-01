@@ -1,0 +1,580 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ professional.full_name }} — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         BACK TO EXPLORE
+         ================================================= -->
+
+    <div class="mb-4">
+
+        <a
+            href="{{ url_for('explore') }}"
+            class="mate-link"
+        >
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Professionals
+        </a>
+
+    </div>
+
+
+    <!-- =================================================
+         PROFILE HEADER
+         ================================================= -->
+
+    <div class="mate-card p-4 p-lg-5 mb-4">
+
+        <div class="row g-4 align-items-center">
+
+            <!-- PROFILE PHOTO -->
+
+            <div class="col-md-4 text-center">
+
+                <div class="professional-details-photo">
+
+                    {% if professional.profile_photo %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='uploads/professional/' + professional.profile_photo
+                            ) }}"
+                            alt="{{ professional.full_name }}"
+                            class="profile-image-large"
+                        >
+
+                    {% else %}
+
+                        <div class="professional-placeholder">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- BASIC INFORMATION -->
+
+            <div class="col-md-8">
+
+                <div class="mate-label mb-2">
+                    {{ professional.category or "PROFESSIONAL" }}
+                </div>
+
+
+                <h1 class="dashboard-title mb-2">
+                    {{ professional.full_name }}
+                </h1>
+
+
+                <h4 class="professional-title mb-3">
+                    {{ professional.profession or "Service Professional" }}
+                </h4>
+
+
+                {% if professional.verification_status %}
+
+                    <span
+                        class="booking-status status-{{ professional.verification_status|lower }}"
+                    >
+                        {{ professional.verification_status|capitalize }}
+                    </span>
+
+                {% endif %}
+
+
+                <div class="row g-3 mt-3">
+
+                    <div class="col-sm-6">
+
+                        <div class="professional-meta">
+
+                            <i class="bi bi-briefcase me-2"></i>
+
+                            {{ professional.experience or 0 }}
+                            years experience
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+
+                        <div class="professional-meta">
+
+                            <i class="bi bi-geo-alt me-2"></i>
+
+                            {{ professional.location or "Location not added" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MAIN INFORMATION
+         ================================================= -->
+
+    <div class="row g-4">
+
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
+
+        <div class="col-lg-8">
+
+
+            <!-- ABOUT -->
+
+            <div class="mate-card p-4 mb-4">
+
+                <div class="mate-label mb-2">
+                    ABOUT
+                </div>
+
+                <h3 class="mate-heading mb-3">
+                    About This Professional
+                </h3>
+
+
+                {% if professional.description %}
+
+                    <p class="text-muted-mate mb-0">
+                        {{ professional.description }}
+                    </p>
+
+                {% else %}
+
+                    <p class="text-muted-mate mb-0">
+                        This professional has not added
+                        a description yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- PROFESSIONAL INFORMATION -->
+
+            <div class="mate-card p-4 mb-4">
+
+                <div class="mate-label mb-2">
+                    PROFESSIONAL INFORMATION
+                </div>
+
+                <h3 class="mate-heading mb-4">
+                    Experience & Qualification
+                </h3>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-person-workspace me-2"></i>
+                        Profession
+                    </span>
+
+                    <strong>
+                        {{ professional.profession or "Not added" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-grid me-2"></i>
+                        Category
+                    </span>
+
+                    <strong>
+                        {{ professional.category or "Not added" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-award me-2"></i>
+                        Experience
+                    </span>
+
+                    <strong>
+                        {{ professional.experience or 0 }}
+                        years
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-mortarboard me-2"></i>
+                        Qualification
+                    </span>
+
+                    <strong>
+                        {{ professional.qualification or "Not added" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-map me-2"></i>
+                        Service Area
+                    </span>
+
+                    <strong>
+                        {{ professional.service_area or "Not added" }}
+                    </strong>
+
+                </div>
+
+            </div>
+        
+        
+<br>
+            <!-- AVAILABILITY -->
+
+            <div class="mate-card p-4">
+
+                <div class="mate-label mb-2">
+                    AVAILABILITY
+                </div>
+
+                <h3 class="mate-heading mb-4">
+                    Working Hours
+                </h3>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-clock me-2"></i>
+                        Available From
+                    </span>
+
+                    <strong>
+                        {{ professional.start_time or "Not set" }}
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-info-row">
+
+                    <span>
+                        <i class="bi bi-clock-fill me-2"></i>
+                        Available Until
+                    </span>
+
+                    <strong>
+                        {{ professional.end_time or "Not set" }}
+                    </strong>
+
+                </div>
+
+            
+
+            </div>
+
+            <!-- =========================================================
+     REVIEWS
+     ========================================================= -->
+
+<section class="mt-5">
+
+<h2 class="mate-heading mb-2">
+    Client Reviews
+</h2>
+
+<div class="mate-section-line mb-4"></div>
+
+
+{% if reviews %}
+
+    <div class="row g-4">
+
+        {% for review in reviews %}
+
+            <div class="col-12">
+
+                <div class="mate-card p-4">
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <!-- USER -->
+
+                        <div class="d-flex align-items-center gap-3">
+
+                            {% if review.user_photo %}
+
+                                <img
+                                    src="{{ url_for(
+                                        'static',
+                                        filename='uploads/user/' + review.user_photo
+                                    ) }}"
+                                    alt="{{ review.user_name }}"
+                                    class="profile-image-small"
+                                >
+
+                            {% else %}
+
+                                <div class="profile-image-small professional-placeholder-small">
+                                    <i class="bi bi-person"></i>
+                                </div>
+
+                            {% endif %}
+
+
+                            <div>
+
+                                <h5 class="mate-heading mb-1">
+                                    {{ review.user_name or "MATE User" }}
+                                </h5>
+
+                                <small class="text-muted-mate">
+                                    {{ review.created_at }}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RATING -->
+
+                        <div class="text-end">
+
+                            <div class="mb-1">
+
+                                {% for i in range(1, 6) %}
+
+                                    {% if i <= review.rating %}
+
+                                        <i class="bi bi-star-fill"></i>
+
+                                    {% else %}
+
+                                        <i class="bi bi-star"></i>
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </div>
+
+                            <small class="text-muted-mate">
+                                {{ review.rating }}/5
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REVIEW TEXT -->
+
+                    {% if review.review_text %}
+
+                        <p class="text-muted-mate mt-3 mb-0">
+                            {{ review.review_text }}
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+{% else %}
+
+    <!-- EMPTY REVIEWS -->
+
+    <div class="mate-card p-4 text-center">
+
+        <div class="empty-icon mb-3">
+            <i class="bi bi-chat-square-text"></i>
+        </div>
+
+        <h4 class="mate-heading">
+            No reviews yet
+        </h4>
+
+        <p class="text-muted-mate mb-0">
+            This professional hasn't received any reviews yet.
+        </p>
+
+    </div>
+
+{% endif %}
+
+
+</section>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <div class="col-lg-4">
+
+
+            <!-- SERVICE CARD -->
+
+            <div class="mate-card p-4 mb-4">
+
+                <div class="mate-label mb-2">
+                    SERVICE
+                </div>
+
+                <h3 class="mate-heading mb-4">
+                    Pricing
+                </h3>
+
+
+                <div class="professional-price mb-4">
+
+                    <span class="text-muted-mate">
+                        Starting from
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            ₹{{ "%.2f"|format(
+                                professional.service_price or 0
+                            ) }}
+                        </strong>
+
+                        <span class="text-muted-mate">
+                            / {{ professional.price_unit or "hour" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOOK BUTTON -->
+
+                {% if logged_in and current_user_role == "user" %}
+
+                    <a
+                        href="{{ url_for(
+                            'booking',
+                            professional_id=professional.id
+                        ) }}"
+                        class="btn btn-mate w-100"
+                    >
+                        <i class="bi bi-calendar-check me-2"></i>
+                        Book Professional
+                    </a>
+
+                {% elif not logged_in %}
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="btn btn-mate w-100"
+                    >
+                        Login to Book
+                    </a>
+
+                {% else %}
+
+                    <button
+                        type="button"
+                        class="btn btn-mate-outline w-100"
+                        disabled
+                    >
+                        User Account Required
+                    </button>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="mate-card p-4">
+
+                <div class="mate-label mb-2">
+                    SERVICE LOCATION
+                </div>
+
+                <h5 class="mate-heading mb-3">
+                    Where They Work
+                </h5>
+
+
+                <p class="text-muted-mate mb-0">
+
+                    <i class="bi bi-geo-alt me-2"></i>
+
+                    {{ professional.location or "Location not added" }}
+
+                </p>
+
+
+                {% if professional.service_area %}
+
+                    <p class="text-muted-mate mt-2 mb-0">
+
+                        <i class="bi bi-map me-2"></i>
+
+                        {{ professional.service_area }}
+
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+</section>
+<br>
+{% endblock %}

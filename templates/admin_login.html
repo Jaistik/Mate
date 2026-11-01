@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Login — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="mate-auth-section">
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-5">
+
+            <!-- HEADER -->
+
+            <div class="text-center mb-4">
+
+                <div class="mate-label mb-3">
+                    MATE // ADMIN LOGIN
+                </div>
+
+                <h1 class="mate-section-title">
+                    Admin access.
+                </h1>
+
+                <div class="mate-section-line mx-auto"></div>
+
+                <p class="mate-subheading">
+                    Sign in to manage the MATE platform.
+                </p>
+
+            </div>
+
+
+            <!-- ADMIN LOGIN CARD -->
+
+            <div class="mate-card p-4 p-md-5">
+
+                <form
+                    method="POST"
+                    action="{{ url_for('admin_login') }}"
+                    data-loading
+                >
+
+                    <!-- USERNAME -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="username"
+                            class="form-label mate-form-label"
+                        >
+                            Admin Username
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control mate-input"
+                            id="username"
+                            name="username"
+                            placeholder="Enter admin username"
+                            required
+                            autocomplete="username"
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="admin-password"
+                            class="form-label mate-form-label"
+                        >
+                            Password
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <input
+                                type="password"
+                                class="form-control mate-input"
+                                id="admin-password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+
+                            <button
+                                type="button"
+                                class="btn mate-password-button password-toggle"
+                                data-target="admin-password"
+                                aria-label="Show password"
+                            >
+                                <i class="bi bi-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECURITY INFO -->
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-shield-lock text-mate me-2"></i>
+
+                        <span class="mate-form-help">
+                            This area is restricted to MATE administrators.
+                        </span>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-mate w-100"
+                    >
+
+                        <i class="bi bi-shield-lock me-2"></i>
+
+                        Admin Login
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- BACK TO MATE -->
+
+            <div class="text-center mt-4">
+
+                <p class="text-muted-mate mb-0">
+
+                    Not an administrator?
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="mate-link"
+                    >
+                        User Login
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

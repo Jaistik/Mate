@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Join MATE — Choose Account Type
+{% endblock %}
+
+
+{% block content %}
+
+<section class="mate-auth-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9 col-xl-8">
+
+                <!-- HEADER -->
+
+                <div class="text-center mb-5">
+
+                    <div class="mate-label mb-3">
+                        JOIN MATE
+                    </div>
+
+                    <h1 class="mate-section-title">
+                        Choose your account
+                    </h1>
+
+                    <div class="mate-section-line mx-auto"></div>
+
+                    <p class="mate-subheading mx-auto">
+                        Tell us how you want to use MATE.
+                    </p>
+
+                </div>
+
+
+                <!-- ACCOUNT OPTIONS -->
+
+                <div class="row g-4">
+
+
+                    <!-- USER -->
+
+                    <div class="col-md-6">
+
+                        <div class="mate-card account-choice-card h-100 p-4 p-lg-5">
+
+                            <div class="account-icon">
+
+                                <i class="bi bi-person"></i>
+
+                            </div>
+
+
+                            <div class="mate-label mb-2">
+                                FOR CLIENTS
+                            </div>
+
+
+                            <h2 class="mate-heading mb-3">
+                                Hire a Professional
+                            </h2>
+
+
+                            <p class="text-muted-mate mb-4">
+
+                                Find skilled professionals,
+                                explore their services,
+                                make bookings, and share
+                                your experience through reviews.
+
+                            </p>
+
+
+                            <ul class="account-feature-list mb-4">
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Explore professionals
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Book services
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Manage bookings
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Leave reviews
+                                </li>
+
+                            </ul>
+
+
+                            <a
+                                href="{{ url_for('register_user') }}"
+                                class="btn btn-mate w-100"
+                            >
+
+                                Create User Account
+
+                                <i class="bi bi-arrow-right ms-2"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PROFESSIONAL -->
+
+                    <div class="col-md-6">
+
+                        <div class="mate-card account-choice-card h-100 p-4 p-lg-5 professional-choice">
+
+                            <div class="account-icon">
+
+                                <i class="bi bi-briefcase"></i>
+
+                            </div>
+
+
+                            <div class="mate-label mb-2">
+                                FOR PROFESSIONALS
+                            </div>
+
+
+                            <h2 class="mate-heading mb-3">
+                                Offer Your Services
+                            </h2>
+
+
+                            <p class="text-muted-mate mb-4">
+
+                                Create your professional profile,
+                                showcase your skills, manage
+                                bookings, and connect with clients.
+
+                            </p>
+
+
+                            <ul class="account-feature-list mb-4">
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Create professional profile
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Showcase your services
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Manage bookings
+                                </li>
+
+                                <li>
+                                    <i class="bi bi-check2"></i>
+                                    Track earnings
+                                </li>
+
+                            </ul>
+
+
+                            <a
+                                href="{{ url_for('register_professional') }}"
+                                class="btn btn-mate-outline w-100"
+                            >
+
+                                Become a Professional
+
+                                <i class="bi bi-arrow-right ms-2"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN -->
+
+                <div class="text-center mt-5">
+
+                    <p class="text-muted-mate mb-0">
+
+                        Already have an account?
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="mate-link"
+                        >
+                            Login
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

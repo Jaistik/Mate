@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}
+    My Profile — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <div class="mb-4">
+
+            <div class="mate-label mb-2">
+                MATE // PROFILE
+            </div>
+
+            <h1 class="dashboard-title">
+                My Profile
+            </h1>
+
+            <p class="text-muted-mate">
+                Manage your personal information.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+<!-- PROFILE PHOTO -->
+
+<div class="col-lg-4">
+
+    <div class="mate-card p-4 text-center profile-card">
+
+        {% if user.profile_photo %}
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='uploads/user/' + user.profile_photo
+                ) }}"
+                alt="{{ user.full_name }}"
+                class="profile-image-large mb-3"
+            >
+
+        {% else %}
+
+            <div class="profile-image-large profile-page-placeholder mb-3">
+                <i class="bi bi-person"></i>
+            </div>
+
+        {% endif %}
+
+        <h4 class="mate-heading profile-name">
+            {{ user.full_name }}
+        </h4>
+
+        <p class="text-muted-mate profile-role">
+            MATE User
+        </p>
+
+    </div>
+
+</div>
+
+
+
+            <!-- PROFILE INFORMATION -->
+
+            <div class="col-lg-8">
+
+                <div class="mate-card p-4 p-md-5">
+
+                    <div class="mate-label mb-2">
+                        PERSONAL INFORMATION
+                    </div>
+
+                    <h3 class="mate-heading mb-4">
+                        Edit Profile
+                    </h3>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('user_profile') }}"
+                    >
+
+                        <!-- NAME -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="full_name"
+                                class="form-label mate-form-label"
+                            >
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control mate-input"
+                                id="full_name"
+                                name="full_name"
+                                value="{{ user.full_name }}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="mb-4">
+
+                            <label
+                                class="form-label mate-form-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control mate-input"
+                                value="{{ user.email }}"
+                                disabled
+                            >
+
+                            <div class="mate-form-help mt-2">
+                                Email address cannot be changed here.
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="phone"
+                                class="form-label mate-form-label"
+                            >
+                                Phone
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control mate-input"
+                                id="phone"
+                                name="phone"
+                                value="{{ user.phone or '' }}"
+                            >
+
+                        </div>
+
+
+                        <!-- LOCATION -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="location"
+                                class="form-label mate-form-label"
+                            >
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control mate-input"
+                                id="location"
+                                name="location"
+                                value="{{ user.location or '' }}"
+                            >
+
+                        </div>
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="address"
+                                class="form-label mate-form-label"
+                            >
+                                Address
+                            </label>
+
+                            <textarea
+                                class="form-control mate-input"
+                                id="address"
+                                name="address"
+                                rows="4"
+                            >{{ user.address or '' }}</textarea>
+
+                        </div>
+
+
+                        <!-- SAVE -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-mate"
+                        >
+                            <i class="bi bi-check2-circle me-2"></i>
+                            Save Changes
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<br>
+{% endblock %}

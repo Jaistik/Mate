@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}
+Notifications — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // NOTIFICATIONS
+        </div>
+
+        <h1 class="dashboard-title">
+            Notifications
+        </h1>
+
+        <div class="mate-section-line mb-3"></div>
+
+        <p class="text-muted-mate">
+            Stay updated about your bookings and activity.
+        </p>
+
+    </div>
+
+
+    <!-- NOTIFICATIONS -->
+
+    {% if notifications %}
+
+        <div class="row g-3">
+
+            {% for notification in notifications %}
+
+                <div class="col-12">
+
+                    <div class="mate-card p-4">
+
+                        <div class="d-flex align-items-start gap-3">
+
+                            <!-- ICON -->
+
+                            <div class="notification-icon">
+
+                                {% if notification.title|lower == "booking request" %}
+
+                                    <i class="bi bi-calendar-plus"></i>
+
+                                {% elif "accepted" in notification.title|lower %}
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                {% elif "rejected" in notification.title|lower %}
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                {% elif "completed" in notification.title|lower %}
+
+                                    <i class="bi bi-check2-all"></i>
+
+                                {% elif "review" in notification.title|lower %}
+
+                                    <i class="bi bi-star"></i>
+
+                                {% else %}
+
+                                    <i class="bi bi-bell"></i>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- CONTENT -->
+
+                            <div class="flex-grow-1">
+
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+
+                                    <h5 class="mate-heading mb-1">
+                                        {{ notification.title }}
+                                    </h5>
+
+                                    {% if notification.is_read == 0 %}
+
+                                        <span class="booking-status status-approved">
+                                            New
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <p class="text-muted-mate mb-2">
+                                    {{ notification.message }}
+                                </p>
+
+
+                                <small class="text-muted-mate">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ notification.created_at }}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- EMPTY STATE -->
+
+        <div class="mate-card p-5 text-center">
+
+            <div class="empty-icon mb-3">
+
+                <i class="bi bi-bell-slash"></i>
+
+            </div>
+
+            <h3 class="mate-heading">
+                No notifications
+            </h3>
+
+            <p class="text-muted-mate mb-0">
+                You're all caught up.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</section>
+<br>
+{% endblock %}

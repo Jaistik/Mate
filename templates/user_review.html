@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}
+Leave Review — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="text-center mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // REVIEW
+        </div>
+
+        <h1 class="dashboard-title">
+            Leave a Review
+        </h1>
+
+        <div class="mate-section-line mx-auto mb-3"></div>
+
+        <p class="text-muted-mate">
+            Share your experience with this professional.
+        </p>
+
+    </div>
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="mate-card p-4 p-md-5">
+
+                <!-- =================================================
+                     PROFESSIONAL
+                     ================================================= -->
+
+                <div class="review-professional-info mb-4">
+
+    {% if booking.professional_photo %}
+
+        <img 
+            src="{{ url_for(
+                'static',
+                filename='uploads/professional/' + booking.professional_photo
+            ) }}"
+            alt="{{ booking.professional_name }}"
+            class="review-professional-image"
+        >
+
+    {% else %}
+
+        <div class="review-professional-placeholder">
+            <i class="bi bi-person"></i>
+        </div>
+
+    {% endif %}
+
+
+    <div class="review-professional-details">
+
+        <h3 class="mate-heading mb-1">
+            {{ booking.professional_name or "Professional" }}
+        </h3>
+
+        <p class="text-muted-mate mb-1">
+            {{ booking.professional_profession or "Professional Service" }}
+        </p>
+
+        <p class="small text-muted-mate mb-0">
+            {{ booking.service or "Service" }}
+        </p>
+
+    </div>
+
+</div>
+
+
+                <hr>
+
+
+                <!-- =================================================
+                     REVIEW FORM
+                     ================================================= -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'user_review',
+                        booking_id=booking.id
+                    ) }}"
+                >
+
+                    <!-- RATING -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="rating"
+                            class="form-label"
+                        >
+                            Rating
+                        </label>
+
+                        <select
+                            id="rating"
+                            name="rating"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+                                Select a rating
+                            </option>
+
+                            <option value="5">
+                                5 — Excellent
+                            </option>
+
+                            <option value="4">
+                                4 — Very Good
+                            </option>
+
+                            <option value="3">
+                                3 — Good
+                            </option>
+
+                            <option value="2">
+                                2 — Fair
+                            </option>
+
+                            <option value="1">
+                                1 — Poor
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- REVIEW -->
+
+                    <div class="mb-4">
+
+                        <label
+                            for="review_text"
+                            class="form-label"
+                        >
+                            Your Review
+                        </label>
+
+                        <textarea
+                            id="review_text"
+                            name="review_text"
+                            class="form-control"
+                            rows="6"
+                            placeholder="Tell us about your experience..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-mate w-100"
+                    >
+
+                        <i class="bi bi-star me-2"></i>
+
+                        Submit Review
+
+                    </button>
+
+
+                    <!-- CANCEL -->
+
+                    <a
+                        href="{{ url_for('booking_history') }}"
+                        class="btn btn-mate-outline w-100 mt-3"
+                    >
+
+                        <i class="bi bi-arrow-left me-2"></i>
+
+                        Back to Booking History
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}

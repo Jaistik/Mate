@@ -1,0 +1,325 @@
+{% extends "base.html" %}
+
+{% block title %}
+Booking History — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+<div class="container">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // BOOKINGS
+        </div>
+
+        <h1 class="dashboard-title">
+            Booking History
+        </h1>
+
+        <div class="mate-section-line mb-3"></div>
+
+        <p class="text-muted-mate">
+            View your previous and current professional bookings.
+        </p>
+
+    </div>
+
+
+    {% if bookings %}
+
+        <div class="row g-4">
+
+            {% for booking in bookings %}
+
+                <div class="col-12">
+
+                    <div class="mate-card p-4">
+
+                        <div class="row align-items-center g-4">
+
+                            <!-- =================================================
+                                 PROFESSIONAL
+                                 ================================================= -->
+
+                            <div class="col-md-4">
+
+                                <div class="d-flex align-items-center gap-3">
+
+                                    {% if booking.professional_photo %}
+
+                                        <img
+                                            src="{{ url_for(
+                                                'static',
+                                                filename='uploads/professional/' + booking.professional_photo
+                                            ) }}"
+                                            alt="{{ booking.professional_name }}"
+                                            class="profile-image-small"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="profile-image-small professional-placeholder-small">
+
+                                            <i class="bi bi-person"></i>
+
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    <div>
+
+                                        <h5 class="mate-heading mb-1">
+                                            {{ booking.professional_name or "Professional" }}
+                                        </h5>
+
+                                        <p class="text-muted-mate mb-0">
+                                            {{ booking.professional_profession or "Service Professional" }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 BOOKING DETAILS
+                                 ================================================= -->
+
+                            <div class="col-md-4">
+
+                                <div class="booking-detail">
+
+                                    <i class="bi bi-briefcase me-2"></i>
+
+                                    {{ booking.service or "Service" }}
+
+                                </div>
+
+
+                                <div class="booking-detail">
+
+                                    <i class="bi bi-calendar3 me-2"></i>
+
+                                    {{ booking.booking_date }}
+
+                                </div>
+
+
+                                <div class="booking-detail">
+
+                                    <i class="bi bi-clock me-2"></i>
+
+                                    {{ booking.booking_time }}
+
+                                </div>
+
+
+                                <div class="booking-detail">
+
+                                    <i class="bi bi-currency-rupee me-2"></i>
+
+                                    ₹{{ "%.2f"|format(booking.price or 0) }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 STATUS + PAYMENT
+                                 ================================================= -->
+
+                            <div class="col-md-4 text-md-end">
+
+                                <!-- STATUS -->
+
+                                <div class="mb-3">
+
+                                    <span
+                                        class="badge booking-status-{{ booking.status|lower }}"
+                                    >
+                                        {{ booking.status|replace("_", " ")|title }}
+                                    </span>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     PENDING
+                                     ================================================= -->
+
+                                {% if booking.status|lower == "pending" %}
+
+                                    <div class="text-muted-mate small">
+
+                                        <i class="bi bi-hourglass-split me-1"></i>
+
+                                        Waiting for professional approval
+
+                                    </div>
+
+
+                                <!-- =================================================
+                                     ACCEPTED
+                                     ================================================= -->
+
+                                {% elif booking.status|lower == "accepted" %}
+
+                                    <div class="mb-2">
+
+                                        <div class="small text-muted-mate mb-2">
+
+                                            <i class="bi bi-check-circle me-1"></i>
+
+                                            Booking accepted
+
+                                        </div>
+
+
+                                        <a
+                                            href="{{ url_for(
+                                                'payment',
+                                                booking_id=booking.id
+                                            ) }}"
+                                            class="btn btn-mate"
+                                        >
+
+                                            <i class="bi bi-credit-card me-2"></i>
+
+                                            Pay Now
+
+                                        </a>
+
+                                    </div>
+
+
+                                <!-- =================================================
+                                     CONFIRMED
+                                     ================================================= -->
+
+                                {% elif booking.status|lower == "confirmed" %}
+
+                                    <div class="text-muted-mate small">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Payment Confirmed
+
+                                    </div>
+
+
+                                <!-- =================================================
+                                     COMPLETED
+                                     ================================================= -->
+
+                                {% elif booking.status|lower == "completed" %}
+
+                                    <div class="text-muted-mate small mb-2">
+
+                                        <i class="bi bi-check-circle-fill me-1"></i>
+
+                                        Service Completed
+
+                                    </div>
+
+
+                                    <a
+                                        href="{{ url_for(
+                                            'user_review',
+                                            booking_id=booking.id
+                                        ) }}"
+                                        class="btn btn-mate-outline btn-sm"
+                                    >
+
+                                        <i class="bi bi-star me-1"></i>
+
+                                        Leave Review
+
+                                    </a>
+
+
+                                <!-- =================================================
+                                     REJECTED
+                                     ================================================= -->
+
+                                {% elif booking.status|lower == "rejected" %}
+
+                                    <div class="text-muted-mate small">
+
+                                        <i class="bi bi-x-circle me-1"></i>
+
+                                        Booking Rejected
+
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
+
+        <div class="mate-card text-center p-5">
+
+            <div class="empty-icon mb-3">
+
+                <i class="bi bi-calendar-x"></i>
+
+            </div>
+
+            <h3 class="mate-heading">
+                No bookings yet
+            </h3>
+
+            <p class="text-muted-mate mb-4">
+                You haven't booked a professional yet.
+            </p>
+
+            <a
+                href="{{ url_for('explore') }}"
+                class="btn btn-mate"
+            >
+
+                <i class="bi bi-search me-2"></i>
+
+                Explore Professionals
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+</section>
+
+<br>
+
+{% endblock %}

@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Explore Professionals — MATE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <div class="container">
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="text-center mb-5">
+
+            <div class="mate-label mb-2">
+                MATE // EXPLORE
+            </div>
+
+            <h1 class="dashboard-title">
+                Find Your Professional
+            </h1>
+
+            <div class="mate-section-line mx-auto mb-3"></div>
+
+            <p class="text-muted-mate">
+                Discover skilled professionals ready to help.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             PROFESSIONAL GRID
+             ================================================= -->
+
+        {% if professionals %}
+
+        <!-- =================================================
+         SEARCH
+        ================================================= -->
+
+        <div class="row justify-content-center mb-5">
+
+        <div class="col-lg-8">
+
+            <div class="mate-card p-3">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        class="form-control mate-live-search"
+                        id="professionalSearch"
+                        placeholder="Search professionals, services, categories..."
+                        data-search-target=".professional-search-item"
+                        autocomplete="off"
+                    >
+
+                    <button
+                        type="button"
+                        class="btn btn-mate-online"
+                        id="voiceSearchButton"
+                        title="Voice search"
+                        aria-label="Voice Search"
+                    >
+                        <i class="bi bi-mic" id="voiceSearchIcon"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+
+            <div class="row g-4">
+
+                {% for professional in professionals %}
+
+                    <div class="col-sm-6 col-lg-4 professional-search-item">
+
+                        <div class="mate-card professional-card h-100">
+
+
+                            <!-- PROFILE PHOTO -->
+
+                            <div class="professional-card-photo">
+
+                                {% if professional.profile_photo %}
+
+                                    <img
+                                        src="{{ url_for(
+                                            'static',
+                                            filename='uploads/professional/' + professional.profile_photo
+                                        ) }}"
+                                        alt="{{ professional.full_name }}"
+                                        class="profile-image-large"
+                                    >
+
+                                {% else %}
+
+                                    <div class="professional-placeholder">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- INFORMATION -->
+
+                            <div class="p-4">
+
+                                <div class="mate-label mb-2">
+                                    {{ professional.category or "PROFESSIONAL" }}
+                                </div>
+
+
+                                <h4 class="mate-heading mb-1">
+                                    {{ professional.full_name }}
+                                </h4>
+
+
+                                <p class="professional-title">
+                                    {{ professional.profession or "Service Professional" }}
+                                </p>
+
+
+                                <!-- EXPERIENCE -->
+
+                                <div class="professional-meta">
+
+                                    <span>
+                                        <i class="bi bi-briefcase me-1"></i>
+
+                                        {{ professional.experience or 0 }}
+                                        years experience
+                                    </span>
+
+                                </div>
+
+
+                                <!-- LOCATION -->
+
+                                {% if professional.location %}
+
+                                    <div class="professional-meta">
+
+                                        <span>
+                                            <i class="bi bi-geo-alt me-1"></i>
+                                            {{ professional.location }}
+                                        </span>
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- DESCRIPTION -->
+
+                                {% if professional.description %}
+
+                                    <p class="text-muted-mate professional-description">
+
+                                        {{ professional.description[:120] }}
+
+                                        {% if professional.description|length > 120 %}
+                                            ...
+                                        {% endif %}
+
+                                    </p>
+
+                                {% endif %}
+
+
+                                <!-- PRICE -->
+
+                                <div class="professional-price">
+
+                                    <span class="text-muted-mate">
+                                        Starting from
+                                    </span>
+
+                                    <strong>
+                                        ₹{{ "%.2f"|format(
+                                            professional.service_price or 0
+                                        ) }}
+                                    </strong>
+
+                                    <span class="text-muted-mate">
+                                        / {{ professional.price_unit or "hour" }}
+                                    </span>
+
+                                </div>
+
+
+                                <!-- ACTION -->
+
+                                <a href="{{ url_for('professional_details', professional_id=professional.id) }}"
+                                class="btn btn-mate w-100 mt-3"
+                                >
+                                View Professional
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- =================================================
+                 EMPTY STATE
+                 ================================================= -->
+
+            <div class="mate-card text-center p-5">
+
+                <div class="empty-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+
+                <h3 class="mate-heading">
+                    No professionals available yet
+                </h3>
+
+                <p class="text-muted-mate mb-4">
+                    New professionals will appear here once
+                    their profiles are approved.
+                </p>
+
+                {% if not logged_in %}
+
+                    <a
+                        href="{{ url_for('register_choice') }}"
+                        class="btn btn-mate"
+                    >
+                        Join MATE
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+<br>
+{% endblock %}
+

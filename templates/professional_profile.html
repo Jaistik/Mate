@@ -1,0 +1,655 @@
+{% extends "base.html" %}
+
+{% block title %}
+Professional Profile — MATE
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section py-5">
+
+```
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="mb-5">
+
+        <div class="mate-label mb-2">
+            MATE // PROFESSIONAL PROFILE
+        </div>
+
+        <h1 class="dashboard-title">
+            Professional Profile
+        </h1>
+
+        <p class="text-muted-mate">
+            Keep your professional information up to date
+            so customers can understand your services.
+        </p>
+
+    </div>
+
+
+    <!-- FLASH MESSAGES -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div
+                    class="alert alert-{{ category }} alert-dismissible fade show"
+                    role="alert"
+                >
+
+                    {{ message }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    ></button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="row g-4">
+
+        <!-- =================================================
+             PROFILE PHOTO
+             ================================================= -->
+
+        <div class="col-lg-4">
+
+            <div class="mate-card p-4 text-center">
+
+                <div class="mate-label mb-3">
+                    PROFILE PHOTO
+                </div>
+
+
+                {% if professional.profile_photo %}
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='uploads/professional/' + professional.profile_photo
+                        ) }}"
+                        alt="Professional profile photo"
+                        class="dashboard-profile-image mb-3"
+                    >
+
+                {% else %}
+
+                    <div class="dashboard-profile-placeholder mx-auto mb-3">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+
+                {% endif %}
+
+
+                <h4 class="mate-heading mb-1">
+                    {{ professional.full_name }}
+                </h4>
+
+                <p class="text-muted-mate mb-3">
+                    {{ professional.profession or "Professional" }}
+                </p>
+
+
+                <div class="small text-muted-mate">
+
+                    <i class="bi bi-info-circle me-1"></i>
+
+                    Upload a clear photo so customers
+                    can identify your professional profile.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PROFILE FORM
+             ================================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="mate-card p-4 p-md-5">
+
+                <form
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    <!-- PERSONAL -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            01 // PERSONAL INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Basic Details
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="full_name"
+                                class="form-label"
+                            >
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="full_name"
+                                name="full_name"
+                                value="{{ professional.full_name or '' }}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="email"
+                                class="form-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                value="{{ professional.email }}"
+                                disabled
+                            >
+
+                            <div class="form-text">
+                                Email cannot be changed here.
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="phone"
+                                class="form-label"
+                            >
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                value="{{ professional.phone or '' }}"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="location"
+                                class="form-label"
+                            >
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="location"
+                                name="location"
+                                value="{{ professional.location or '' }}"
+                                placeholder="e.g. Mumbai"
+                            >
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <label
+                                for="profile_photo"
+                                class="form-label"
+                            >
+                                Change Profile Photo
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="profile_photo"
+                                name="profile_photo"
+                                accept=".jpg,.jpeg,.png,.webp"
+                            >
+
+                            <div class="form-text">
+                                JPG, JPEG, PNG or WEBP. Maximum 5 MB.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- PROFESSIONAL -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            02 // PROFESSIONAL INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Your Expertise
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="profession"
+                                class="form-label"
+                            >
+                                Profession
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="profession"
+                                name="profession"
+                                value="{{ professional.profession or '' }}"
+                                placeholder="e.g. Web Developer"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="category"
+                                class="form-label"
+                            >
+                                Category
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="category"
+                                name="category"
+                            >
+
+                                <option value="">
+                                    Select a category
+                                </option>
+
+                                <option value="Technology"
+                                    {% if professional.category == "Technology" %}selected{% endif %}>
+                                    Technology
+                                </option>
+
+                                <option value="Design"
+                                    {% if professional.category == "Design" %}selected{% endif %}>
+                                    Design
+                                </option>
+
+                                <option value="Writing"
+                                    {% if professional.category == "Writing" %}selected{% endif %}>
+                                    Writing
+                                </option>
+
+                                <option value="Photography"
+                                    {% if professional.category == "Photography" %}selected{% endif %}>
+                                    Photography
+                                </option>
+
+                                <option value="Marketing"
+                                    {% if professional.category == "Marketing" %}selected{% endif %}>
+                                    Marketing
+                                </option>
+
+                                <option value="Education"
+                                    {% if professional.category == "Education" %}selected{% endif %}>
+                                    Education
+                                </option>
+
+                                <option value="Home Services"
+                                    {% if professional.category == "Home Services" %}selected{% endif %}>
+                                    Home Services
+                                </option>
+
+                                <option value="Business"
+                                    {% if professional.category == "Business" %}selected{% endif %}>
+                                    Business
+                                </option>
+
+                                <option value="Other"
+                                    {% if professional.category == "Other" %}selected{% endif %}>
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="experience"
+                                class="form-label"
+                            >
+                                Experience
+                            </label>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="experience"
+                                    name="experience"
+                                    min="0"
+                                    value="{{ professional.experience or 0 }}"
+                                >
+
+                                <span class="input-group-text">
+                                    Years
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="qualification"
+                                class="form-label"
+                            >
+                                Qualification
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="qualification"
+                                name="qualification"
+                                value="{{ professional.qualification or '' }}"
+                                placeholder="e.g. Degree / Certification"
+                            >
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <label
+                                for="description"
+                                class="form-label"
+                            >
+                                Professional Description
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="Describe your skills and services..."
+                            >{{ professional.description or '' }}</textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- SERVICE -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            03 // SERVICE INFORMATION
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Service & Pricing
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="service_area"
+                                class="form-label"
+                            >
+                                Service Area
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="service_area"
+                                name="service_area"
+                                value="{{ professional.service_area or '' }}"
+                                placeholder="e.g. Mumbai / Remote"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="service_price"
+                                class="form-label"
+                            >
+                                Service Price
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="service_price"
+                                name="service_price"
+                                min="0"
+                                step="0.01"
+                                value="{{ professional.service_price or 0 }}"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="price_unit"
+                                class="form-label"
+                            >
+                                Price Unit
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="price_unit"
+                                name="price_unit"
+                            >
+
+                                <option value="hour"
+                                    {% if professional.price_unit == "hour" %}selected{% endif %}>
+                                    Per Hour
+                                </option>
+
+                                <option value="day"
+                                    {% if professional.price_unit == "day" %}selected{% endif %}>
+                                    Per Day
+                                </option>
+
+                                <option value="project"
+                                    {% if professional.price_unit == "project" %}selected{% endif %}>
+                                    Per Project
+                                </option>
+
+                                <option value="service"
+                                    {% if professional.price_unit == "service" %}selected{% endif %}>
+                                    Per Service
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr class="my-5">
+
+
+                    <!-- AVAILABILITY -->
+
+                    <div class="mb-4">
+
+                        <div class="mate-label mb-2">
+                            04 // AVAILABILITY
+                        </div>
+
+                        <h3 class="mate-heading">
+                            Working Hours
+                        </h3>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="start_time"
+                                class="form-label"
+                            >
+                                Available From
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="start_time"
+                                name="start_time"
+                                value="{{ professional.start_time or '' }}"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label
+                                for="end_time"
+                                class="form-label"
+                            >
+                                Available Until
+                            </label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="end_time"
+                                name="end_time"
+                                value="{{ professional.end_time or '' }}"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SAVE -->
+
+                    <div class="mt-5">
+
+                        <button
+                            type="submit"
+                            class="btn btn-mate w-100"
+                        >
+                            Save Professional Profile
+                            <i class="bi bi-check2 ms-2"></i>
+                        </button>
+
+                    </div>
+
+
+                    <!-- BACK -->
+
+                    <div class="text-center mt-4">
+
+                        <a
+                            href="{{ url_for('professional_dashboard') }}"
+                            class="mate-link"
+                        >
+                            <i class="bi bi-arrow-left me-1"></i>
+                            Back to Dashboard
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}
